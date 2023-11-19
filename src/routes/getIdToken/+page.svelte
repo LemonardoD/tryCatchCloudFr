@@ -8,30 +8,109 @@
 </script>
 
 <div class="Page">
-    <p class="info">
-        Loader
-    </p>         
+    <div class="loader">
+        <!-- svelte-ignore a11y-label-has-associated-control -->
+        <div class="loaderInner">
+        <label>●</label>
+        <label>●</label>
+        <label>●</label>
+        <label>●</label>
+        <label>●</label>
+        <label>●</label>
+        </div>
+    </div>
 </div>
-
 
 <style>
     .Page{
-        margin-top: 100px;
-        font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        border: 1px solid #f3f4f6;
-        background-color:#ffffff;
-        padding: 24px;
-    }
-    .info{
-        padding: 24px;
-        text-align: center;
-        color: lighten(#2a2a2a, 20%);
-        font-family: inherit;
-        font-size: 20px;
-        display: block;
-        box-shadow:inset 0px 1px 1px fadeout(white, 95%);
-        border: 1px solid darken(#2a2a2a, 5%);
         margin: 0;
-        font-weight: 300;
+        padding: 0;
+        background:#3498db;
+    }
+
+    .loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .loaderInner {
+        transform: translateY(-50%);
+        top: 50%;
+        position: absolute;
+        width: calc(100% - 200px);
+        color: #FFF;
+        padding: 0 100px;
+        text-align: center;
+    }
+
+    .loaderInner label {
+        font-size: 20px;
+        opacity: 0;
+        display:inline-block;
+    }
+
+    @keyframes lol {
+    0% {
+        opacity: 0;
+        transform: translateX(-300px);
+    }
+    33% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    66% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+    }
+
+    @-webkit-keyframes lol {
+    0% {
+        opacity: 0;
+        transform: translateX(-300px);
+    }
+    33% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    66% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+    }
+
+    .loaderInner label:nth-child(6) {
+        animation: lol 3s infinite ease-in-out;
+    }
+
+    .loaderInner label:nth-child(5) {
+        animation: lol 3s 100ms infinite ease-in-out;
+    }
+
+    .loaderInner label:nth-child(4) {
+        animation: lol 3s 200ms infinite ease-in-out;
+    }
+
+    .loaderInner label:nth-child(3) {
+        animation: lol 3s 300ms infinite ease-in-out;
+    }
+
+    .loaderInner label:nth-child(2) {
+        animation: lol 3s 400ms infinite ease-in-out;
+    }
+
+    .loaderInner label:nth-child(1) {
+        animation: lol 3s 500ms infinite ease-in-out;
     }
 </style>
