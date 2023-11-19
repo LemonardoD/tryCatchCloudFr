@@ -53,41 +53,22 @@
     }
 
     @keyframes lol {
-    0% {
-        opacity: 0;
-        transform: translateX(-300px);
-    }
-    33% {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-    66% {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(300px);
-    }
-    }
-
-    @-webkit-keyframes lol {
-    0% {
-        opacity: 0;
-        transform: translateX(-300px);
-    }
-    33% {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-    66% {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(300px);
-    }
+        0% {
+            opacity: 0;
+            transform: translateX(-300px);
+        }
+        33% {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+        66% {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(300px);
+        }
     }
 
     .loaderInner label:nth-child(6) {
