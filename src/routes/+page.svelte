@@ -5,7 +5,7 @@
     export let data
 </script>
 
-<div class="log-form">
+<div class="page">
     <h1>Welcome</h1>
     {#if data.token}
         <p>You can go straight to Error Log or retrieve your ID token</p>
@@ -18,7 +18,7 @@
 </div>
   
 <style>
-    .log-form {
+    .page {
         padding: 18px;
         text-align: center;
         font-family: 'open sans', helvetica, arial, sans;

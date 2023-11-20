@@ -3,6 +3,8 @@ import type { DateRange, ErrorLogs } from "../../types/types";
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
+const { VITE_API_URL } = import.meta.env;
+
 export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 	let token = cookies.get("jwt");
 	if (!token) {
@@ -12,10 +14,10 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 	const tag = url.searchParams.get("errTag") || "all";
 	const fetchApi = async () => {
 		if (tag && tag !== "all") {
-			let reqUrl = `http://localhost:3000/api/err-log/by-tag?tag=${tag}`;
+			let reqUrl = `${VITE_API_URL}/api/err-log/by-tag?tag=${tag}`;
 			if (range !== "For all time") {
 				const timeStamp = getTimeStamp(range as DateRange);
-				reqUrl = `http://localhost:3000/api/err-log/by-tag?tag=${tag}&time=${timeStamp}`;
+				reqUrl = `${VITE_API_URL}/api/err-log/by-tag?tag=${tag}&time=${timeStamp}`;
 			}
 			const apiResponse = await fetch(reqUrl, {
 				method: "GET",
@@ -36,13 +38,14 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 					"Error Name": el.errorName,
 					"Error Message": el.errorMessage,
 					"Event Time": el.timeStamp,
+					errId: el.errLogId,
 				};
 			});
 			return { errors: table, range: range, tag: tag };
 		}
 		if (tag === "all" && range !== "For all time") {
 			const timeStamp = getTimeStamp(range as DateRange);
-			const apiResponse = await fetch(`http://localhost:3000/api/err-log/by-time/${timeStamp}`, {
+			const apiResponse = await fetch(`${VITE_API_URL}/api/err-log/by-time/${timeStamp}`, {
 				method: "GET",
 				mode: "cors",
 				headers: {
@@ -60,12 +63,13 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 					"Error Name": el.errorName,
 					"Error Message": el.errorMessage,
 					"Event Time": el.timeStamp,
+					errId: el.errLogId,
 				};
 			});
 
 			return { errors: table, range: range, tag: tag };
 		} else {
-			const apiResponse = await fetch(`http://localhost:3000/api/err-log/all`, {
+			const apiResponse = await fetch(`${VITE_API_URL}/api/err-log/all`, {
 				method: "GET",
 				mode: "cors",
 				headers: {
@@ -84,6 +88,7 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 					"Error Name": el.errorName,
 					"Error Message": el.errorMessage,
 					"Event Time": el.timeStamp,
+					errId: el.errLogId,
 				};
 			});
 			return { errors: table, range: range, tag: tag };

@@ -63,11 +63,14 @@
                     <table>
                         <thead>
                             {#each headTitles as title}
-                                <th>{title}</th>
+                                {#if !clustered}
+                                    {#if title === "errId"}
+                                        <th>Details</th>
+                                    {:else}
+                                        <th>{title}</th>
+                                    {/if}   
+                                {/if}
                             {/each}
-                            {#if !clustered}
-                                <th>Details</th>      
-                            {/if}
                         </thead>
                         <tbody>
                             {#if data}
@@ -85,11 +88,12 @@
                                                     <td data-label={key}>{getDate(`${value}`)}</td>
                                                 {:else if errorTag ==="all" && key === "Event Tag"}
                                                     <td data-label={key}><a href={`/specific-errors?errTag=${value}&range=${range}`} on:click={handleTagClick}>{value}</a></td>
-                                                {:else }
+                                                {:else if  key === "errId"}
+                                                    <td data-label="Details"><a href={`/details?errId=${value}`} on:click={handleTagClick}>View</a></td>
+                                                {:else if key !=="errId"}
                                                     <td data-label={key}>{value}</td>
                                                 {/if}
                                             {/each}
-                                            <td data-label="Details"><a href={`/`} on:click={handleTagClick}>View</a></td>
                                         </tr>
                                     {/if}
                                 {/each}
