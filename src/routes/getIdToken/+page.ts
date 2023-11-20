@@ -14,7 +14,7 @@ export const load: PageLoad = ({ fetch, url }) => {
 			referrerPolicy: "no-referrer",
 		});
 		const data = await apiResponse.json();
-		Cookies.set("jwt", data.jwtToken);
+		Cookies.set("jwt", data.token);
 		return data;
 	};
 	return fetchApi();
