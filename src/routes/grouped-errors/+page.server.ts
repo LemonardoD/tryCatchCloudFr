@@ -2,15 +2,13 @@ import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import type { GroupedErrorLogs } from "../../types/types";
 
-const { VITE_API_URL } = import.meta.env;
-
 export const load: PageServerLoad = ({ fetch, cookies }) => {
 	let token = cookies.get("jwt");
 	if (!token) {
 		throw redirect(302, "/");
 	}
 	const fetchApi = async () => {
-		const apiResponse = await fetch(`${VITE_API_URL}/api/err-log/grouped`, {
+		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/grouped`, {
 			method: "GET",
 			mode: "cors",
 			headers: {

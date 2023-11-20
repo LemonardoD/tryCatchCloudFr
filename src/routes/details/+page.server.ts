@@ -2,8 +2,6 @@ import type { ErrorLogDetail } from "../../types/types";
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
-const { VITE_API_URL } = import.meta.env;
-
 export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 	let token = cookies.get("jwt");
 	if (!token) {
@@ -11,7 +9,7 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 	}
 	const errId = url.searchParams.get("errId");
 	const fetchApi = async () => {
-		const apiResponse = await fetch(`${VITE_API_URL}/api/err-log/details/${errId}`, {
+		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/details/${errId}`, {
 			method: "GET",
 			mode: "cors",
 			headers: {
