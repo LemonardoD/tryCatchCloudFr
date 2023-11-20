@@ -6,7 +6,7 @@
 
 <div class="Page">
     <p class="info">
-        Here is your ID: <small>{data.token}</small>
+        Here is your ID: <small>{data.usageToken}</small>
     </p>
     <button  class="btn" on:click= {() =>{goto("/grouped-errors")}}>Error Log</button>     
 </div>
