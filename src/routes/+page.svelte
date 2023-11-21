@@ -10,7 +10,7 @@
     {#if data.token}
         <p>You can go straight to Error Log or retrieve your ID Api token</p>
         <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
-        <button  class="btn" on:click= {() =>{goto("/showToken")}}>Retrieve Api token</button>
+        <button  class="btn" on:click= {() =>{goto("/showToken")}}>Api token</button>
     {:else}
         <p>You can connect via GitHub</p>
         <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>GitHub</button>
@@ -19,19 +19,18 @@
   
 <style>
     .page {
+        background-color: #231F1E;
+        border-radius: 40px;
         padding: 18px;
         text-align: center;
-        font-family: 'open sans', helvetica, arial, sans;
-        width: 40%;
-        min-width: 320px;
-        max-width: 475px;
-        background: #fff;
+        min-width: 500px;
+        max-width: 700px;
         position: absolute;
-        top: 45%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%,-50%);
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        box-shadow: 0px 2px 5px rgba(0,0,0,.25);
+    
         
         @media(max-width: 40em){
             width: 95%;
@@ -43,7 +42,7 @@
     }
     
     h1{
-        color: lighten(#2a2a2a, 20%);
+        color: #ffffff;
         font-family: inherit;
         display: block;
         margin: 0;
@@ -51,7 +50,7 @@
         padding-top: 20px;
     }
     p {
-        color: lighten(#2a2a2a, 20%);
+        color: #ffffff;
         font-family: inherit;
         font-size: 20px;
         display: block;
@@ -63,24 +62,17 @@
     }
     
     .btn {
+        background-color: #6fa8dc;
+        color: #fff;
+        margin: 0 6px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 45px;
         cursor: pointer;
         font-family: inherit;
-        display: inline-block;
-        background: #16263e;
-        padding: 8px 32px;
-        color: white;
-        border-radius: 5px;
-        margin-right: 4px;
-        margin-left: 4px;
-        &:hover {
-           background-color: black;
-        }
-        &:active {
-            background: #111010; 
-            box-shadow: inset 0px 1px 1px fadeout(black, 90%); 
-        }
-        &:focus {
-            outline: none;
-        }
+        font-size: 16px;
+            &:hover {
+            opacity: 0.5;
+            }
     }
 </style>

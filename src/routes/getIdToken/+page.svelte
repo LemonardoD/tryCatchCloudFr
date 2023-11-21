@@ -25,7 +25,6 @@
     .Page{
         margin: 0;
         padding: 0;
-        background:#3498db;
     }
 
     .loader {

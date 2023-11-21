@@ -1,7 +1,10 @@
 export type ErrorLogs = {
+	errorMethod: string;
 	errorLogId: string;
 	errorTag: string;
 	errorTime: string;
+	stack: string | null;
+	context: object | null;
 };
 
 export type ErrorLogDetail = {

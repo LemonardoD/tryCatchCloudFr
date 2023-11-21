@@ -1,18 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import type { ErrorLogs } from "../../types/types";
-
-	// import type { ErrObjForTables } from "../../types/types";
-	// import { getDate, getTitles, handleClusteredClick, handleRowClick, handleShowAllClick, handleTagClick } from "./table";
-    // export let clustered: boolean
-    // export let range: string | undefined
-    // export let errorTag: string | undefined
-    
-    // let headTitles = getTitles(data);
-
-    // $: {
-    //     headTitles = getTitles(data);
-    // }
     const changeDate =(inputDateStr: string) =>{
         const inputDate = new Date(inputDateStr)
         return `${(inputDate.getMonth() + 1).toString().padStart(2, '0')}/${inputDate.getDate().toString().padStart(2, '0')} ${inputDate.toLocaleTimeString()}`;
@@ -30,36 +18,6 @@
     <div class="content">
         <header class="cardHeader">
             <p class="cardHeaderTitle">{tblName}</p>
-            <!-- {#if clustered}
-                <div class="buttons" >
-                    <button on:click={() =>{handleShowAllClick(range)}} class="btn">
-                        All Errors
-                    </button>
-                </div>
-            {:else}
-                <div class="buttons" >
-                    <button on:click={() =>{handleClusteredClick()}} class="btn">
-                        Clustered
-                    </button>
-                </div>
-                <div class="buttons" >
-                    <button on:click={() =>{handleShowAllClick(range)}} class="btn">
-                        All Errors
-                    </button>
-                </div>
-                <div class="buttons" >
-                    <button class="btn" id="dropdownButton">
-                        {range}
-                    </button>
-                    <div class="dropdown-content">
-                        <p>For all time</p>
-                        <p>Last Hour</p>
-                        <p>Last 24 Hours</p>
-                        <p>Last 7 Days</p>
-                        <p>Last 14 Days</p>
-                    </div>
-                </div>
-            {/if} -->
         </header>
             {#if !data}
                 <div class="cardContent">
@@ -72,40 +30,34 @@
                     <table>
                         <thead>
                             <th>Tag</th>
+                            <th>Includes</th>
                             <th>Time</th>
                         </thead>
                         <tbody>
                             {#each data  as item}
                                 <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
-                                    {#each Object.entries(item) as [key, value]}
-                                        {#if key === 'errorTime'}
-                                            <td data-label="Event Time">{changeDate(value)}</td>
-                                        {:else if key != "errorLogId"}
-                                            <td data-label="Event Tag">{value}</td>
-                                        {/if}
-                                    {/each}
-                                </tr>
-                                    <!-- {#if clustered}
-                                        <tr class="haveRef" on:click={() => handleRowClick(item["Event Tag"])}>
-                                            {#each Object.entries(item) as [key, value]}
-                                                <td data-label={key}>{value}</td>
-                                            {/each}
-                                        </tr>
+                                    <td data-label="Event Tag">{item.errorMethod +" "+ item.errorTag}</td>
+                                    {#if item.context && item.stack}
+                                        <td data-label="Includes">metadata, stack, context</td>
+                                    {:else if item.context && !item.stack}
+                                        <td data-label="Includes">metadata, context</td>
+                                    {:else if !item.context && item.stack}
+                                        <td data-label="Includes">metadata, stack</td>
                                     {:else}
-                                        <tr>
-                                            {#each Object.entries(item) as [key, value]}
-                                                {#if key === "Event Time"}
-                                                    <td data-label={key}>{getDate(`${value}`)}</td>
-                                                {:else if errorTag ==="all" && key === "Event Tag"}
-                                                    <td data-label={key}><a href={`/specific-errors?errTag=${value}&range=${range}`} on:click={handleTagClick}>{value}</a></td>
-                                                {:else if  key === "errId"}
-                                                    <td data-label="Details"><a href={`/details?errId=${value}`} on:click={handleTagClick}>View</a></td>
-                                                {:else if key !=="errId"}
-                                                    <td data-label={key}>{value}</td>
-                                                {/if}
-                                            {/each}
-                                        </tr>
-                                    {/if} -->
+                                        <td data-label="Includes">metadata</td>
+                                    {/if}
+                                        <td data-label="Event Time">{changeDate(item.errorTime)}</td>
+                                    <!-- {#each Object.entries(item) as [key, value]}
+                                    <td data-label="Event Time">{changeDate(item.errorTime)}</td>
+                                        {#if key === 'errorTime'}
+                                            <td data-label="Event Time">{changeDate(item.errorTime)}</td>
+                                        {:else if key === "errorTag"}
+                                            <td data-label={key}>{item.errorMethod +" "+  value}</td>
+                                        {:else if key === "errorTag"}
+                                            <td data-label={key}>{item.errorMethod +" "+  value}</td>
+                                        {/if}
+                                    {/each} -->
+                                </tr>
                                 {/each}
                         </tbody>
                     </table>
@@ -116,78 +68,32 @@
 
 
 <style>
-     .haveRef{
+    .haveRef{
         cursor: pointer;
     }
-    /* a{ 
-        cursor: pointer;
-        color: #2563EB;
-        text-decoration: inherit;
-        font-family: inherit;
-    } */
+   
     .noData{
+        background-color: #27282c;
         text-align: center;
-        color: lighten(#2a2a2a, 20%);
+        color: #ffffff;
         font-family: inherit;
         font-size: 20px;
         display: block;
         text-transform: uppercase;
-        box-shadow:inset 0px 1px 1px fadeout(white, 95%);
-        border: 1px solid darken(#2a2a2a, 5%);
+        box-shadow:inset 0px 1px 1px fadeout(#231F1E, 95%);
+        border: 1px solid darken(#231F1E, 5%);
         margin: 0;
         font-weight: 300;
     }
-    /* .btn { */
-        /* width: 140px;
-        background-color: #16263e;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .buttons {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px #000000;
-        z-index: 1;
-    } */
-    
+   
     p{  
+        color: #ffffff;
         padding: 24px;
         margin: 0;
     }
-
-    /* .dropdown-content p {
-        cursor: pointer;
-        color: #000000;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content p:hover {
-        background-color: #0c1727;
-        color: #ffffff;
-    }
-
-    .buttons:hover .dropdown-content {
-        display: block;
-    }
-
-    .buttons:hover .btn {
-        background-color: #000000;
-    } */
     
     .Page{
+        background-color: #27282c;
         padding: 24px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
@@ -202,6 +108,7 @@
         position: relative;
         display: block;
         max-width: 100%;
+        border-bottom: 2px solid #fff;
     }
 
     td{ 
@@ -210,7 +117,6 @@
         padding: 9.4px 12px;
         text-align: right;
         vertical-align: top;
-        border-bottom: 1px solid #f3f4f6;
     }
 
     table {
@@ -220,11 +126,15 @@
     }
 
     .cardContent{
+        margin-top: 12px;
+        color: #ffffff;
         padding:24px;
+        background-color:  #231F1E;
+        border-radius: 30px;
     }
 
     .cardHeaderTitle{
-        margin: 0;
+        margin-left: 22px;
         flex-grow: 1;
         font-weight: 700;
         font-size: 16px;
@@ -234,21 +144,18 @@
     }
 
     .cardHeader{
+        background-color:  #231F1E;
         height: 48px;
         display: flex;
         align-items: stretch;
-        border-bottom: 1px solid #f3f4f6;
-    }
-
-    .content{
-        border: 1px solid #f3f4f6;
-        background-color:#ffffff;
+        border-radius: 30px;
     }
 
     @media (max-width: 1023px) {
         thead {
             display: none;
         }
+        
     }
 
     @media (min-width: 1023px) {
@@ -256,11 +163,10 @@
             padding: 8px 12px;
             text-align: left;
             font-size: 16px;
-            line-height: 24px;
         }
         tr {
             display: table-row;
-            border-bottom-width: 0px;
+            border-bottom-width: 0
         }
         td::before {
             display: none;
@@ -272,7 +178,7 @@
             vertical-align: middle;
         }
         tr:hover td{
-            background-color: #f3f4f6;
+            background-color: #1d1d21
         }
     }
 </style>

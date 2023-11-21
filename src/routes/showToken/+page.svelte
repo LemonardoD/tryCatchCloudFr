@@ -5,55 +5,56 @@
 </script>
 
 <div class="Page">
-    <p class="info">
-        Here is your API Key: <small>{data.usageToken}</small>
-    </p>
-    <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
+    <div class="content">
+        <p class="info">
+            Here is your API Key: <small>{data.usageToken}</small>
+        </p>
+        <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
+    </div>
 </div>
 
 
 <style>
     .btn {
+        background-color: #6fa8dc;
+        color: #fff;
+        margin: 0 6px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 45px;
         cursor: pointer;
         font-family: inherit;
-        background: #16263e;
-        padding: 8px 32px;
-        color: white;
-        border-radius: 5px;
-        margin-right: 4px;
-        margin-left: 4px;
-        &:hover {
-           background-color: black;
-        }
-        &:active {
-            background: #111010; 
-            box-shadow: inset 0px 1px 1px fadeout(black, 90%); 
-        }
-        &:focus {
-            outline: none;
-        }
+        font-size: 16px;
+            &:hover {
+            opacity: 0.5;
+            }
     }
     small {
         word-break: break-all;
     }
-    .Page{
+    .content{
+        width: 50%;
+        left: 20%;
+        position: relative;
+        border-radius: 40px;
         text-align: center;
-        margin-top: 100px;
+        padding: 24px;
+        background-color: #231F1E;
+    }
+    .Page{
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        border: 1px solid #f3f4f6;
-        background-color:#ffffff;
         padding: 24px;
     }
     .info{
         padding: 24px;
         text-align: center;
-        color: lighten(#2a2a2a, 20%);
+        color: #fff;
         font-family: inherit;
         font-size: 20px;
-        display: block;
         box-shadow:inset 0px 1px 1px fadeout(white, 95%);
         border: 1px solid darken(#2a2a2a, 5%);
         margin: 0;
         font-weight: 300;
     }
+    
 </style>

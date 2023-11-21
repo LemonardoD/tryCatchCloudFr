@@ -1,21 +1,22 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-
-
+    import JSONTree from 'svelte-json-tree';
+    
     export let data;
-    const {stack, context, ...metaData} = data
+    const {stack, context, ...value} = data
+
 </script>
 
 <div class="dashBoard">
     <div class="content">
         <div class="column">
             <p class="titleWord">Metadata</p>
-            <pre>{JSON.stringify(metaData, null, 2)}</pre>
+            <div class="jsonTable"><JSONTree {value} /></div>
         </div>
         {#if context}
             <div class="column">
                 <p class="titleWord">Context</p>
-                <pre>{JSON.stringify(context, null, 4)}</pre>
+                <div class="jsonTable"><JSONTree {context} /></div>
             </div>
         {/if}
         <div class="column">
@@ -23,54 +24,50 @@
             <p class="text">{stack}</p>
         </div>
         <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Back to Errors</button>
-            <!-- <div class="column">
-                {#each Object.entries(errorObject) as [key, value]}
-                    {#if key !== "stack" && key !== "Context"}
-                        <p class="titleWord">{key}: </p><p class="text">{value}</p>
-                    {/if}
-                {/each}
-            </div>
-            {#if errorObject.Context}
-                <div class="column">
-                    <p class="titleWord">Stack: </p><p class="textStack">{errorObject.stack}</p>
-                </div>
-                <div class="column">
-                    <p class="titleWord">Context: </p><p class="textStack">{errorObject.Context}</p>
-                </div>
-            {:else}
-                <div class="column">
-                    <p class="titleWord">Stack: </p><p class="textStack">{errorObject.stack}</p>
-                </div>
-            {/if} -->
     </div>
 </div>
 
 <style>
-    pre {
-        font-family: inherit;
-        padding: 18px;
-        border-radius: 5px;
+    .jsonTable {
+        --json-tree-string-color: #73BA7E;
+        --json-tree-boolean-color: #112aa7;
+        --json-tree-number-color: #6fa8dc;
+        --json-tree-label-color: #FFA500;
+        --json-tree-arrow-color: #727272;
+        --json-tree-property-color: #E5BDE2;
+        --json-tree-undefined-color: #871d8f;
+        /* position */
+        --json-tree-li-indentation: 16px;
+        --json-tree-li-line-height: 28px;
+        /* font */
+        --json-tree-font-size: 14px;
+        --json-tree-font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: #231F1E;
         overflow: auto;
+        height: 340px;
+        font-family: inherit;
+        padding: 24px;
+        border-radius: 5px;
         word-break: break-word;
     }
    
     .text{
         font-size: 14px;
-        color: #1F2937;
+        color: #fff;
         line-height: 20px;
         padding-left: 12px;
-        padding-top: 7px;
-        padding-bottom: 12px;
+        padding-top: 12px;
+        padding-bottom: 24px;
     }
 
     .titleWord{
+        color: #fff;
         font-weight: 600;
         line-height: 28px;
         font-size: 20px;
     }
     
     p{
-        
         word-break:break-word;
         margin: 0;
     }
@@ -78,28 +75,23 @@
         padding: 24px;
     }
     .dashBoard{
+        background-color: #27282c;
         padding: 24px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
-    .btn { 
+    .btn {
+        background-color: #6fa8dc;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 45px;
         cursor: pointer;
         font-family: inherit;
-        display: inline-block;
-        background: #16263e;
-        padding: 8px 32px;
-        color: white;
-        border-radius: 5px;
-        margin-right: 4px;
-        margin-left: 4px;
-        &:hover {
-           background-color: black;
-        }
-        &:active {
-            background: #111010; 
-            box-shadow: inset 0px 1px 1px fadeout(black, 90%); 
-        }
-        &:focus {
-            outline: none;
-        }
+        font-size: 16px;
+            &:hover {
+            opacity: 0.5;
+            }
     }
+    
+  
 </style>
