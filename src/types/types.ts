@@ -1,4 +1,5 @@
 export type ErrorLogs = {
+	user: string;
 	errorMethod: string;
 	errorLogId: string;
 	errorTag: string;

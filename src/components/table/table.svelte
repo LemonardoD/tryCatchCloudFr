@@ -47,16 +47,6 @@
                                         <td data-label="Includes">metadata</td>
                                     {/if}
                                         <td data-label="Event Time">{changeDate(item.errorTime)}</td>
-                                    <!-- {#each Object.entries(item) as [key, value]}
-                                    <td data-label="Event Time">{changeDate(item.errorTime)}</td>
-                                        {#if key === 'errorTime'}
-                                            <td data-label="Event Time">{changeDate(item.errorTime)}</td>
-                                        {:else if key === "errorTag"}
-                                            <td data-label={key}>{item.errorMethod +" "+  value}</td>
-                                        {:else if key === "errorTag"}
-                                            <td data-label={key}>{item.errorMethod +" "+  value}</td>
-                                        {/if}
-                                    {/each} -->
                                 </tr>
                                 {/each}
                         </tbody>
