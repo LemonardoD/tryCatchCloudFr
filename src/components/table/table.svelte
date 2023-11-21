@@ -68,6 +68,20 @@
 
 
 <style>
+    ::-webkit-scrollbar {
+        width: 12px;
+		position: absolute;
+		right: 0px;
+	}
+	::-webkit-scrollbar-track {
+		background: #f9fafb;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #888;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
     .haveRef{
         cursor: pointer;
     }

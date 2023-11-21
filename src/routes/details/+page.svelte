@@ -3,20 +3,22 @@
     import JSONTree from 'svelte-json-tree';
     
     export let data;
-    const {stack, context, ...value} = data
+    const {stack, context, ...metaData} = data
+    
 
 </script>
 
-<div class="dashBoard">
+<div class="page">
     <div class="content">
         <div class="column">
             <p class="titleWord">Metadata</p>
-            <div class="jsonTable"><JSONTree {value} /></div>
+            <div class="jsonTable"><JSONTree value={metaData} /></div>
         </div>
         {#if context}
+        
             <div class="column">
                 <p class="titleWord">Context</p>
-                <div class="jsonTable"><JSONTree {context} /></div>
+                <div class="jsonTable"><JSONTree value={context} /></div>
             </div>
         {/if}
         <div class="column">
@@ -69,12 +71,12 @@
     
     p{
         word-break:break-word;
-        margin: 0;
+        margin-top: 12px;
     }
     .content{
-        padding: 24px;
+        padding: 0 24px;
     }
-    .dashBoard{
+    .page{
         background-color: #27282c;
         padding: 24px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
