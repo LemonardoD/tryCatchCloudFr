@@ -30,6 +30,7 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 			query: logObj.query,
 			params: logObj.params,
 			reqBody: logObj.method,
+			errName: logObj.errorName,
 			errorMessage: logObj.errorMessage,
 			axiosDetails: logObj.axiosDetails,
 			stack: logObj.stack,
