@@ -5,4 +5,4 @@
 </script>
 
     
-<Table tblName="Clustered Errors" clustered={true} range='' data={data.errors} errorTag={''}/>
+<Table tblName="Errors"  data={data.message}/>

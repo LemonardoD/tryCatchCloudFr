@@ -9,7 +9,7 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 	}
 	const errId = url.searchParams.get("errId");
 	const fetchApi = async () => {
-		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/details/${errId}`, {
+		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/by-id/${errId}`, {
 			method: "GET",
 			mode: "cors",
 			headers: {
@@ -20,17 +20,23 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 			referrerPolicy: "no-referrer",
 		});
 
-		const data: { message: ErrorLogDetail[] } = await apiResponse.json();
-		const table = data.message.map(el => {
-			return {
-				Url: el.url,
-				Method: el.method,
-				Params: JSON.stringify(el.params),
-				Query: JSON.stringify(el.query),
-				stack: el.stack,
-			};
-		});
-		return { table };
+		const data: {
+			message: ErrorLogDetail[];
+		} = await apiResponse.json();
+		const logObj = data.message[0];
+		const errLog = {
+			method: logObj.method,
+			url: logObj.url,
+			query: logObj.query,
+			params: logObj.params,
+			reqBody: logObj.method,
+			errorMessage: logObj.errorMessage,
+			axiosDetails: logObj.axiosDetails,
+			stack: logObj.stack,
+			context: logObj.context,
+		};
+
+		return errLog;
 	};
 
 	return fetchApi();

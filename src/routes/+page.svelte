@@ -8,9 +8,9 @@
 <div class="page">
     <h1>Welcome</h1>
     {#if data.token}
-        <p>You can go straight to Error Log or retrieve your ID token</p>
-        <button  class="btn" on:click= {() =>{goto("/grouped-errors")}}>Error Log</button>
-        <button  class="btn" on:click= {() =>{goto("/showToken")}}>Retrieve ID</button>
+        <p>You can go straight to Error Log or retrieve your ID Api token</p>
+        <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
+        <button  class="btn" on:click= {() =>{goto("/showToken")}}>Retrieve Api token</button>
     {:else}
         <p>You can connect via GitHub</p>
         <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>GitHub</button>

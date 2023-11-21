@@ -6,9 +6,9 @@
 
 <div class="Page">
     <p class="info">
-        Here is your ID: <small>{data.usageToken}</small>
+        Here is your API Key: <small>{data.usageToken}</small>
     </p>
-    <button  class="btn" on:click= {() =>{goto("/grouped-errors")}}>Error Log</button>     
+    <button  class="btn" on:click= {() =>{goto("/grouped-errors")}}>Error Log</button>
 </div>
 
 

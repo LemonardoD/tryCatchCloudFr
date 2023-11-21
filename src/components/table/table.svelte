@@ -1,19 +1,28 @@
 <script lang="ts">
-	import type { ErrObjForTables } from "../../types/types";
-	import { getDate, getTitles, handleClusteredClick, handleRowClick, handleShowAllClick, handleTagClick } from "./table";
+	import { goto } from "$app/navigation";
+	import type { ErrorLogs } from "../../types/types";
+
+	// import type { ErrObjForTables } from "../../types/types";
+	// import { getDate, getTitles, handleClusteredClick, handleRowClick, handleShowAllClick, handleTagClick } from "./table";
+    // export let clustered: boolean
+    // export let range: string | undefined
+    // export let errorTag: string | undefined
+    
+    // let headTitles = getTitles(data);
+
+    // $: {
+    //     headTitles = getTitles(data);
+    // }
+    const changeDate =(inputDateStr: string) =>{
+        const inputDate = new Date(inputDateStr)
+        return `${(inputDate.getMonth() + 1).toString().padStart(2, '0')}/${inputDate.getDate().toString().padStart(2, '0')} ${inputDate.toLocaleTimeString()}`;
+    } 
 
 
     export let tblName: string
-    export let clustered: boolean
-    export let range: string | undefined
-    export let data: ErrObjForTables[] | undefined
-    export let errorTag: string | undefined
     
-    let headTitles = getTitles(data);
-
-    $: {
-        headTitles = getTitles(data);
-    }
+    export let data: ErrorLogs[] | undefined
+  
     
 </script>
 
@@ -21,7 +30,7 @@
     <div class="content">
         <header class="cardHeader">
             <p class="cardHeaderTitle">{tblName}</p>
-            {#if clustered}
+            <!-- {#if clustered}
                 <div class="buttons" >
                     <button on:click={() =>{handleShowAllClick(range)}} class="btn">
                         All Errors
@@ -50,9 +59,9 @@
                         <p>Last 14 Days</p>
                     </div>
                 </div>
-            {/if}
+            {/if} -->
         </header>
-            {#if !headTitles.length}
+            {#if !data}
                 <div class="cardContent">
                     <p class="noData">
                         No data
@@ -62,20 +71,21 @@
                 <div class="cardContent">
                     <table>
                         <thead>
-                            {#each headTitles as title}
-                                {#if !clustered}
-                                    {#if title === "errId"}
-                                        <th>Details</th>
-                                    {:else}
-                                        <th>{title}</th>
-                                    {/if}   
-                                {/if}
-                            {/each}
+                            <th>Tag</th>
+                            <th>Time</th>
                         </thead>
                         <tbody>
-                            {#if data}
-                                {#each data  as item}
-                                    {#if clustered}
+                            {#each data  as item}
+                                <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
+                                    {#each Object.entries(item) as [key, value]}
+                                        {#if key === 'errorTime'}
+                                            <td data-label="Event Time">{changeDate(value)}</td>
+                                        {:else if key != "errorLogId"}
+                                            <td data-label="Event Tag">{value}</td>
+                                        {/if}
+                                    {/each}
+                                </tr>
+                                    <!-- {#if clustered}
                                         <tr class="haveRef" on:click={() => handleRowClick(item["Event Tag"])}>
                                             {#each Object.entries(item) as [key, value]}
                                                 <td data-label={key}>{value}</td>
@@ -95,9 +105,8 @@
                                                 {/if}
                                             {/each}
                                         </tr>
-                                    {/if}
+                                    {/if} -->
                                 {/each}
-                            {/if}
                         </tbody>
                     </table>
                 </div>
@@ -107,15 +116,15 @@
 
 
 <style>
-    .haveRef{
+     .haveRef{
         cursor: pointer;
     }
-    a{  
+    /* a{ 
         cursor: pointer;
         color: #2563EB;
         text-decoration: inherit;
         font-family: inherit;
-    }
+    } */
     .noData{
         text-align: center;
         color: lighten(#2a2a2a, 20%);
@@ -128,8 +137,8 @@
         margin: 0;
         font-weight: 300;
     }
-    .btn {
-        width: 140px;
+    /* .btn { */
+        /* width: 140px;
         background-color: #16263e;
         color: white;
         padding: 16px;
@@ -150,14 +159,14 @@
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px #000000;
         z-index: 1;
-    }
+    } */
     
     p{  
         padding: 24px;
         margin: 0;
     }
 
-    .dropdown-content p {
+    /* .dropdown-content p {
         cursor: pointer;
         color: #000000;
         padding: 12px 16px;
@@ -176,7 +185,7 @@
 
     .buttons:hover .btn {
         background-color: #000000;
-    }
+    } */
     
     .Page{
         padding: 24px;

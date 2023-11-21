@@ -1,6 +1,6 @@
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import type { GroupedErrorLogs } from "../../types/types";
+import type { ErrorLogs } from "../../types/types";
 
 export const load: PageServerLoad = ({ fetch, cookies }) => {
 	let token = cookies.get("jwt");
@@ -8,7 +8,7 @@ export const load: PageServerLoad = ({ fetch, cookies }) => {
 		throw redirect(302, "/");
 	}
 	const fetchApi = async () => {
-		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/grouped`, {
+		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/all`, {
 			method: "GET",
 			mode: "cors",
 			headers: {
@@ -18,15 +18,9 @@ export const load: PageServerLoad = ({ fetch, cookies }) => {
 			redirect: "error",
 			referrerPolicy: "no-referrer",
 		});
-		const data: { message: GroupedErrorLogs[] } = await apiResponse.json();
-		const table = data.message.map(el => {
-			return {
-				"Event Tag": el.req_url,
-				Count: el.count,
-			};
-		});
+		const data: { message: ErrorLogs[] } = await apiResponse.json();
 
-		return { errors: table };
+		return data;
 	};
 	return fetchApi();
 };

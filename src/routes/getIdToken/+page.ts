@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import type { PageLoad } from "./$types";
+import { redirect } from "@sveltejs/kit";
 
 export const load: PageLoad = ({ fetch, url }) => {
 	const code = url.searchParams.get("code");
