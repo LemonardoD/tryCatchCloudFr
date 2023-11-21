@@ -15,10 +15,9 @@
             <div class="jsonTable"><JSONTree value={metaData} /></div>
         </div>
         {#if context}
-        
             <div class="column">
                 <p class="titleWord">Context</p>
-                <div class="jsonTable"><JSONTree value={context} /></div>
+                <div class="jsonTableContext"><JSONTree value={context} /></div>
             </div>
         {/if}
         <div class="column">
@@ -30,6 +29,28 @@
 </div>
 
 <style>
+    .jsonTableContext{
+        --json-tree-string-color: #73BA7E;
+        --json-tree-boolean-color: #112aa7;
+        --json-tree-number-color: #6fa8dc;
+        --json-tree-label-color: #FFA500;
+        --json-tree-arrow-color: #727272;
+        --json-tree-property-color: #E5BDE2;
+        --json-tree-undefined-color: #871d8f;
+        /* position */
+        --json-tree-li-indentation: 16px;
+        --json-tree-li-line-height: 28px;
+        /* font */
+        --json-tree-font-size: 14px;
+        --json-tree-font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: #231F1E;
+        overflow: auto;
+        height: 200px;
+        font-family: inherit;
+        padding: 24px;
+        border-radius: 5px;
+        word-break: break-word;
+    }
     .jsonTable {
         --json-tree-string-color: #73BA7E;
         --json-tree-boolean-color: #112aa7;
@@ -63,6 +84,7 @@
     }
 
     .titleWord{
+        margin-left: 4px;
         color: #fff;
         font-weight: 600;
         line-height: 28px;

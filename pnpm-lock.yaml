@@ -8,9 +8,6 @@ dependencies:
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
-  monaco-editor:
-    specifier: ^0.44.0
-    version: 0.44.0
   svelte-json-tree:
     specifier: ^2.2.0
     version: 2.2.0(svelte@4.2.3)
@@ -749,10 +746,6 @@ packages:
     dependencies:
       minimist: 1.2.8
     dev: true
-
-  /monaco-editor@0.44.0:
-    resolution: {integrity: sha512-5SmjNStN6bSuSE5WPT2ZV+iYn1/yI9sd4Igtk23ChvqB7kDk9lZbB9F5frsuvpB+2njdIeGGFf2G4gbE6rCC9Q==}
-    dev: false
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
