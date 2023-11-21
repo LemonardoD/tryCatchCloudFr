@@ -13,11 +13,21 @@ export type ErrorLogDetail = {
 	method: string;
 	url: string;
 	query: object;
-	params: object;
 	requestBody: object;
-	axiosDetails: object | null;
+	error: object | null;
 	context: object | null;
 	stack: string;
+};
+
+export type DetailsObj = {
+	method: string;
+	url: string;
+	errorMessage: string;
+	stack: string;
+	context: object | null;
+	query?: object | null;
+	body?: object | null;
+	error?: object | null;
 };
 
 // export type DateRange = "Last Hour" | "Last 24 Hours" | "Last 7 Days" | "Last 14 Days";

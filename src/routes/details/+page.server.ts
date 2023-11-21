@@ -1,4 +1,4 @@
-import type { ErrorLogDetail } from "../../types/types";
+import type { DetailsObj, ErrorLogDetail } from "../../types/types";
 import type { PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
@@ -24,18 +24,22 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 			message: ErrorLogDetail[];
 		} = await apiResponse.json();
 		const logObj = data.message[0];
-		const errLog = {
+		const errLog: DetailsObj = {
 			method: logObj.method,
 			url: logObj.url,
-			query: logObj.query,
-			params: logObj.params,
-			reqBody: logObj.method,
-			errName: logObj.errorName,
 			errorMessage: logObj.errorMessage,
-			axiosDetails: logObj.axiosDetails,
 			stack: logObj.stack,
 			context: logObj.context,
 		};
+		if (logObj.query) {
+			errLog.query = logObj.query;
+		}
+		if (logObj.requestBody) {
+			errLog.body = logObj.requestBody;
+		}
+		if (logObj.error) {
+			errLog.error = logObj.error;
+		}
 
 		return errLog;
 	};
