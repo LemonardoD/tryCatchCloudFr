@@ -23,8 +23,7 @@
         border-radius: 40px;
         padding: 18px;
         text-align: center;
-        min-width: 500px;
-        max-width: 700px;
+        width: 1024px;
         position: absolute;
         top: 40%;
         left: 50%;
@@ -32,8 +31,8 @@
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     
         
-        @media(max-width: 40em){
-            width: 95%;
+        @media(max-width: 1023px){
+            width: 90%;
             position: relative;
             margin: 2.5% auto 0 auto;
             left: 0%;

@@ -99,8 +99,20 @@
         padding: 0 24px;
     }
     .page{
-        padding: 24px;
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%);
+        border-radius: 40px;
+        position: relative;
+        width: 1024px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        @media(max-width: 1023px){
+            width: 90%;
+            position: relative;
+            margin: 2.5% auto 0 auto;
+            left: 0%;
+            transform: translate(0%,0%);
+        }
     }
     .btn {
         background-color: #4bb74a;

@@ -38,7 +38,7 @@
 </script>
 
 
-<div class="Page">
+<div class="page">
     <div class="content">
         <header class="cardHeader">
             <p class="cardHeaderTitle">{tblName}</p>
@@ -67,7 +67,7 @@
                         <tbody>
                             {#each tableData  as item}
                                 <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
-                                    <td data-label="Event Tag">{item.errorMethod +" "+ item.errorTag}</td>
+                                    <td data-label="Tag">{item.errorMethod +" "+ item.errorTag}</td>
                                     {#if item.context && item.stack}
                                         <td data-label="Includes">metadata, stack, context</td>
                                     {:else if item.context && !item.stack}
@@ -77,7 +77,7 @@
                                     {:else}
                                         <td data-label="Includes">metadata</td>
                                     {/if}
-                                        <td data-label="Event Time">{changeDate(item.errorTime)}</td>
+                                        <td data-label="Time">{changeDate(item.errorTime)}</td>
                                 </tr>
                                 {/each}
                         </tbody>
@@ -123,7 +123,11 @@
     }
    
     
-    .Page{
+    .page{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         padding: 24px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
@@ -200,9 +204,12 @@
             display: none;
         }
         
+        
     }
 
     @media (min-width: 1023px) {
+        .page{
+        width: 1024px;}
         th{
             padding: 8px 12px;
             text-align: left;
