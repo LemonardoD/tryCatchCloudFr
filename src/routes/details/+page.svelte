@@ -99,7 +99,6 @@
         padding: 0 24px;
     }
     .page{
-        position: fixed;
         left: 50%;
         transform: translate(-50%);
         border-radius: 40px;
