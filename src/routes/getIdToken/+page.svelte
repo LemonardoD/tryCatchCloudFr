@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
 
    onMount(()=>{
-    goto("/showToken")
+    goto("/error-logs")
    })
 </script>
 
