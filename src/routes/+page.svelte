@@ -19,7 +19,7 @@
   
 <style>
     .page {
-        background-color: #231F1E;
+        background-color: #27282c;
         border-radius: 40px;
         padding: 18px;
         text-align: center;
@@ -62,7 +62,7 @@
     }
     
     .btn {
-        background-color: #6fa8dc;
+        background-color: #4bb74a;
         color: #fff;
         margin: 0 6px;
         padding: 10px 20px;

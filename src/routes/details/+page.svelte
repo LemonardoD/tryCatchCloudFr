@@ -99,12 +99,11 @@
         padding: 0 24px;
     }
     .page{
-        background-color: #27282c;
         padding: 24px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
     .btn {
-        background-color: #6fa8dc;
+        background-color: #4bb74a;
         color: #fff;
         padding: 10px 20px;
         border: none;

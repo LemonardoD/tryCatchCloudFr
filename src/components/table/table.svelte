@@ -124,7 +124,6 @@
    
     
     .Page{
-        background-color: #27282c;
         padding: 24px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
@@ -157,10 +156,10 @@
     }
 
     .cardContent{
+        background-color: #27282c;
         margin-top: 12px;
         color: #ffffff;
         padding:24px;
-        background-color:  #231F1E;
         border-radius: 30px;
     }
 
@@ -189,7 +188,7 @@
     }
 
     .cardHeader{
-        background-color:  #231F1E;
+        background-color: #27282c;
         height: 48px;
         display: flex;
         align-items: stretch;

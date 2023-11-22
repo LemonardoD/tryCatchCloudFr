@@ -16,7 +16,7 @@
 
 <style>
     .btn {
-        background-color: #6fa8dc;
+        background-color: #4bb74a;
         color: #fff;
         margin: 0 6px;
         padding: 10px 20px;
@@ -34,12 +34,12 @@
     }
     .content{
         width: 50%;
-        left: 20%;
+        left: 25%;
         position: relative;
         border-radius: 40px;
         text-align: center;
         padding: 24px;
-        background-color: #231F1E;
+        background-color: #27282c;
     }
     .Page{
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -52,7 +52,6 @@
         font-family: inherit;
         font-size: 20px;
         box-shadow:inset 0px 1px 1px fadeout(white, 95%);
-        border: 1px solid darken(#2a2a2a, 5%);
         margin: 0;
         font-weight: 300;
     }
