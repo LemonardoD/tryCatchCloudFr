@@ -7,7 +7,7 @@ export const load: PageServerLoad = ({ cookies }) => {
 		throw redirect(302, "/");
 	}
 	const fetchApi = async () => {
-		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/login/errToken`, {
+		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/user/api-token`, {
 			method: "GET",
 			mode: "cors",
 			headers: {

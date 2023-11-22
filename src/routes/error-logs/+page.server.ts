@@ -20,7 +20,7 @@ export const load: PageServerLoad = ({ fetch, cookies }) => {
 		});
 		const data: { message: ErrorLogs[] } = await apiResponse.json();
 
-		return data;
+		return { tableData: data.message, token };
 	};
 	return fetchApi();
 };
