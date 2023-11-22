@@ -8,7 +8,7 @@
 <div class="page">
     <h1>Welcome</h1>
     {#if data.token}
-        <p>You can go straight to Error Log or retrieve your ID Api token</p>
+        <p>You can go straight to Error Logs or retrieve your Api token</p>
         <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
         <button  class="btn" on:click= {() =>{goto("/showToken")}}>Api token</button>
     {:else}
