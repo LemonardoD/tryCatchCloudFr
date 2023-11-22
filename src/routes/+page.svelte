@@ -1,20 +1,12 @@
 <script>
     import { goto } from '$app/navigation';
     const { VITE_GITHUB_ID } = import.meta.env
-
-    export let data
 </script>
 
 <div class="page">
     <h1>Welcome</h1>
-    {#if data.token}
-        <p>You can go straight to Error Logs or retrieve your Api token</p>
-        <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
-        <button  class="btn" on:click= {() =>{goto("/showToken")}}>Api token</button>
-    {:else}
-        <p>You can connect via GitHub</p>
-        <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>GitHub</button>
-    {/if}
+    <p>You can connect via GitHub</p>
+    <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>GitHub</button>
 </div>
   
 <style>

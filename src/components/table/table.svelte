@@ -83,12 +83,39 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="paginationContent">
+                    <ul class="pagination">
+                        <li>
+                          <a href="#">Prev</a>
+                        </li>
+                        <li>
+                          <a href="#">1</a>
+                        </li>
+                        <li class="active">
+                          <a href="#">2</a>
+                        </li>
+                        <li>
+                          <a href="#">3</a>
+                        </li>
+                        <li>
+                          <a href="#">4</a>
+                        </li>
+                        <li>
+                          <a href="#">5</a>
+                        </li>
+                        <li>
+                          <a href="#">Next</a>
+                        </li>
+                      </ul>
+                    </div>
             {/if}
     </div>
+    
 </div>
 
 
 <style>
+   
     ::-webkit-scrollbar {
         width: 12px;
 		position: absolute;
@@ -121,13 +148,12 @@
     .switchLabel{
         right: 20px;
     }
-   
     
     .page{
         left: 50%;
         transform: translate(-50%);
         position: relative;
-        padding: 24px;
+        padding: 0 20px;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
@@ -147,7 +173,7 @@
     td{ 
         display: flex;
         justify-content: space-between;
-        padding: 9.4px 12px;
+        padding: 9px;
         text-align: right;
         vertical-align: top;
     }
@@ -157,12 +183,21 @@
         width: 100%;
         border-collapse: collapse;
     }
+    .paginationContent{
+        background-color: #27282c;
+        margin-top: 8px;
+        color: #ffffff;
+        padding-left: 36px;
+        border-radius: 30px;
+    }
 
     .cardContent{
         background-color: #27282c;
-        margin-top: 12px;
+        margin-top: 8px;
         color: #ffffff;
-        padding:24px;
+        padding-left: 25px;
+        padding-top: 12px;
+        padding-bottom: 8px;
         border-radius: 30px;
     }
 
@@ -198,17 +233,52 @@
         border-radius: 30px;
     }
 
-    @media (max-width: 1023px) {
+    @media (max-width: 1100px) {
         thead {
             display: none;
         }
-        
+        .paginationContent{
+            display: none   ;
+        }
+        .cardContent{
+            padding: 24px;
+        }
         
     }
 
-    @media (min-width: 1023px) {
+    @media (min-width: 1099px) {
+        
         .page{
-        width: 1024px;}
+            width: 65%;
+        }
+
+        .pagination {
+            margin: 0;
+            position: relative;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+            border-radius: 40px;
+        }
+        .pagination li {
+            list-style-type: none;
+            display: inline-block;
+        }
+        .pagination li a {
+            position: relative;
+            padding: 9.5px 25px;
+            font-size: 16px;
+            border-radius: 35px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+        }
+        .pagination li a:hover,
+        .pagination li.active a {
+            background: #1d1d21
+        }
         th{
             padding: 8px 12px;
             text-align: left;

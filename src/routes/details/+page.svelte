@@ -1,13 +1,15 @@
-<script lang="ts">
+<script>
 	import { goto } from '$app/navigation';
-    import JSONTree from 'svelte-json-tree';
-    
+    // @ts-ignore
+    import JSONTree from "svelte-json-tree";
+    import NavSideBar from '../../components/navBar/navBar.svelte';
+
     export let data;
     const {stack, context, ...metaData} = data
     
 
 </script>
-
+<NavSideBar/>
 <div class="page">
     <div class="content">
         <div class="column">

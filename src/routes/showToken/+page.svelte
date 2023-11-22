@@ -1,34 +1,19 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
+    import NavSideBar from '../../components/navBar/navBar.svelte';
     export let data
 </script>
 
+<NavSideBar/>
 <div class="page">
     <div class="content">
         <p class="info">
             Here is your API Key: <small>{data.usageToken}</small>
         </p>
-        <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Error Log</button>
     </div>
 </div>
 
 
 <style>
-    .btn {
-        background-color: #4bb74a;
-        color: #fff;
-        margin: 0 6px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 45px;
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 16px;
-            &:hover {
-            opacity: 0.5;
-            }
-    }
     small {
         word-break: break-all;
     }
