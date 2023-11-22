@@ -229,8 +229,8 @@
     .switch {
         position: relative;
         display: inline-block;
-        width: 40px;
-        height: 8px;
+        width: 35px;
+        height: 10px;
         top: 20px;
         right: 10px;
     }
@@ -253,7 +253,7 @@
         height: 20px;
         width: 20px;
         left: 0;
-        top: -6px;
+        top: -5px;
         background-color: #484848;
         outline: none;
         transition: .4s;
@@ -269,6 +269,6 @@
     }
                 
     input:checked + .slider:before {
-        transform: translateX(26px);
+        transform: translateX(16px);
     }            
 </style>
