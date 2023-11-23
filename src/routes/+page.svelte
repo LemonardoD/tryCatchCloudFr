@@ -1,21 +1,41 @@
 <script>
     import { goto } from '$app/navigation';
+    import githubIcon from '../lib/icons/github.png'
     const { VITE_GITHUB_ID } = import.meta.env
 </script>
 
 <div class="page">
     <h1>Welcome</h1>
-    <p>You can connect via GitHub</p>
-    <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>GitHub</button>
+    <p>You can sing in via GitHub</p>
+    <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>
+        <div class="signIn"> 
+            <img  class="gitIcons"src={githubIcon} alt="GitHub"/>
+            <span class="iconTag">Sing in  with GitHub</span>
+        </div>
+    </button>  
 </div>
   
 <style>
+    .signIn{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .iconTag{
+        padding: 2px;
+        font-size: 14px;
+    }
+    .gitIcons{
+        height: 28px;
+        width: 28px;
+        padding-right: 4px;
+    }
     .page {
         background-color: #27282c;
         border-radius: 40px;
         padding: 18px;
         text-align: center;
-        width: 1024px;
+        width: 25%;
         position: absolute;
         top: 40%;
         left: 50%;
@@ -53,7 +73,7 @@
     }
     
     .btn {
-        background-color: #13061b;
+        background-color: #140e20;
         color: #fff;
         margin: 0 6px;
         padding: 10px 20px;

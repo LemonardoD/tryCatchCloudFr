@@ -3,13 +3,12 @@
     import keyIcon from "../lib/icons/key.png"
     import logIcon from "../lib/icons/log.png"
 	import { goto } from "$app/navigation";
-	import { page } from "$app/stores";
     
 
     const navigateToErrorLogs = async () => {
-        await goto('/error-logs/1', {replaceState: true});
-
+        await goto('/error-logs?page=1', {replaceState: true});
     };
+    
     let isDropdownOpen = false;
     const handleDropdownClick = () => {
         isDropdownOpen = !isDropdownOpen;
@@ -24,9 +23,10 @@
             <img  class="userIcon"src={userIcon} alt="User"/>
         </button>
         <div class="navBarDrdown">
-            <a href="/showToken">
+            <a href="/show-token">
                 <img  class="subIcons"src={keyIcon} alt="Api Key"/>
             </a>
+            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
             <a  on:click={() =>{navigateToErrorLogs()}}>
                 <img  class="subIcons"src={logIcon} alt="Error log"/>
             </a>    
@@ -45,7 +45,7 @@
     }
     
     .navBarDrdown a:hover{
-        background-color: #222;
+        background-color: #27282c;
         border-radius: 20px;
     }
     a {

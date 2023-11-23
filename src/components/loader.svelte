@@ -1,12 +1,3 @@
-<script lang="ts">
-	import { goto } from "$app/navigation";
-	import { onMount } from "svelte";
-
-   onMount(()=>{
-    goto("/error-logs")
-   })
-</script>
-
 <div class="Page">
     <div class="loader">
         <!-- svelte-ignore a11y-label-has-associated-control -->

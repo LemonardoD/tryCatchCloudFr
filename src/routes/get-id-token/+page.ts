@@ -18,7 +18,9 @@ export const load: PageLoad = ({ fetch, url }) => {
 		if (!data.token) {
 			throw redirect(302, "/");
 		}
-		Cookies.set("jwt", data.token);
+		if (data.token !== undefined) {
+			Cookies.set("jwt", data.token);
+		}
 		return data;
 	};
 	return fetchApi();

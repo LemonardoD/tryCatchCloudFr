@@ -2,14 +2,13 @@
 	import { goto } from '$app/navigation';
     // @ts-ignore
     import JSONTree from "svelte-json-tree";
-    import NavSideBar from '../../components/navBar.svelte';
 
     export let data;
     const {stack, context, ...metaData} = data
     
 
 </script>
-<NavSideBar/>
+
 <div class="page">
     <div class="content">
         <div class="column">
@@ -26,7 +25,7 @@
             <p class="titleWord">Stack Trace</p>
             <p class="text">{stack}</p>
         </div>
-        <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Back to Errors</button>
+        <button  class="btn" on:click= {() =>{goto("/error-logs?page=1")}}>Back to Errors</button>
     </div>
 </div>
 
@@ -105,7 +104,7 @@
         transform: translate(-50%);
         border-radius: 40px;
         position: relative;
-        width: 1024px;
+        width: 60%;
         font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         @media(max-width: 1023px){
             width: 90%;
@@ -116,7 +115,7 @@
         }
     }
     .btn {
-        background-color: #13061b;
+        background-color: #140e20;
         color: #fff;
         padding: 10px 20px;
         border: none;

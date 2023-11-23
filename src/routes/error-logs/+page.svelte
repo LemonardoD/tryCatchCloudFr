@@ -1,45 +1,36 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+	import { changeDate, changeLive, generatePageArray, setCurrentPage } from "$lib/error-log";
 	import type { ErrorLogs } from "../../types/types";
-	import { changeDate } from "./table";
-   
-    export let tblName: string
-    export let data: ErrorLogs[] | undefined
-    export let currentPage: number
-    export let cookie: string | undefined
 
-    const setCurrentPage = async (newPage: number) => {
-        currentPage = newPage
-        goto(`/error-logs/${newPage}`, {replaceState: true})
-        
-    }
-    let pageList =[1,2]
-
-    let checked = false;
+    export let data
+    let checked = false
     let intervalId: NodeJS.Timeout
-    let tableData = data
-    function ChangeLive() {
-        checked =!checked
-    }
+    $: pageNumber = Number($page.url.searchParams.get('page')) ||1
+    $: tableData = data.data.result
+    $: pageList = generatePageArray(pageNumber, Number(data.data.rowCount))
+    
+    
     $: if (checked) {
-        
+        goto('/error-logs?page=1')
         intervalId = setInterval(async () =>{
-            if(cookie){const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/all`, {
+            if(data.token){const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/page/1`, {
             method: "GET",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${cookie}`,
+                Authorization: `Bearer ${data.token}`,
             },
             redirect: "error",
             referrerPolicy: "no-referrer",
         });
-        const data: { message: ErrorLogs[] } = await apiResponse.json();
-        tableData = data.message
+        const respData:  { result: ErrorLogs[]; rowCount: string } = await apiResponse.json();
+        tableData = respData.result
+        pageList = generatePageArray(pageNumber, Number(respData.rowCount))
         }
         }, 5000);
     } else {
-       
         clearInterval(intervalId);
     }
     
@@ -49,16 +40,16 @@
 <div class="page">
     <div class="content">
         <header class="cardHeader">
-            <p class="cardHeaderTitle">{tblName}</p>
+            <p class="cardHeaderTitle">Errors</p>
             <p class="switchLabel">Auto update</p>
             <div class="switch">
                 <label>
-                  <input type="checkbox" bind:checked on:click={() =>{ChangeLive()}} />
+                  <input type="checkbox" bind:checked on:click={() =>{changeLive(checked)}} />
                   <span class="slider"></span>
                 </label>
               </div>
         </header>
-            {#if !tableData}
+            {#if !tableData || (tableData && !tableData.length)}
                 <div class="cardContent">
                     <p class="noData">
                         No data
@@ -75,7 +66,7 @@
                         <tbody>
                             {#each tableData  as item}
                                 <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
-                                    <td data-label="Tag">{item.errorMethod +" "+ item.errorTag}</td>
+                                    <td data-label="Tag"><pre>{item.errorMethod.length === 3? item.errorMethod.padEnd(4, " ")+` ${item.errorTag}`: item.errorMethod +` ${item.errorTag}`}</pre></td>
                                     {#if item.context && item.stack}
                                         <td data-label="Includes">metadata, stack, context</td>
                                     {:else if item.context && !item.stack}
@@ -95,14 +86,25 @@
                             <small style="float left">Page 1 of 1</small>
                         </div>
                     {:else}
-                        <div class="tablePagination">
-                            {#each pageList as page}
-                                <button  on:click ={() => {setCurrentPage(page)}} class="pages {page === currentPage ? 'active' : ''}">
-                                    {page} 
-                                </button>
-                            {/each}
-                            <small class="pageLabel">Page {currentPage} of {pageList[pageList.length -1 ]}</small>
-                        </div>
+                        {#if checked}
+                            <div class="tablePagination">
+                                {#each pageList as numPage}
+                                    <button disabled class="pages">
+                                        {numPage} 
+                                    </button>
+                                {/each}
+                                <small class="pageLabel">Auto updating</small>
+                            </div>
+                        {:else}
+                            <div class="tablePagination">
+                                {#each pageList as numPage}
+                                    <button  on:click ={() => {setCurrentPage(numPage, checked)}} class="pages {numPage === pageNumber ? 'active' : ''}">
+                                        {numPage} 
+                                    </button>
+                                {/each}
+                                <small class="pageLabel">Page {pageNumber} of {pageList[pageList.length -1 ]}</small>
+                            </div>
+                        {/if}
                     {/if}
                 </div>
             {/if}
@@ -112,8 +114,17 @@
 
 
 <style>
-     button.pages.active {
-        border: 1px solid #484848
+    button.pages[disabled] {
+        border: 1px solid #27282c;
+        color: white;
+        cursor: auto;
+    }
+
+    button.pages:hover[disabled]{
+        border: 1px solid #27282c;
+    }
+    button.pages.active {
+        border: 1px solid #424242
     }
 
     button.pages:hover{
@@ -121,6 +132,7 @@
     }
 
     button.pages{
+        cursor: pointer;
         color: #fff;
         font-family: inherit;
         font-size: inherit;
@@ -132,7 +144,6 @@
         text-align: center;
         margin: 0px 4px;
         background: none;
-        cursor: pointer;
         -webkit-tap-highlight-color: transparent;
     }
     .pageLabel{
@@ -140,8 +151,8 @@
         font-size: 80%;
         float: right;
     }
-   .tablePagination{
-        border-top: 1px solid #f3f4f6;
+    .tablePagination{
+        border-top: 1px solid #a7a7a7;
         padding: 10px 24px;
     }
     ::-webkit-scrollbar {
@@ -173,13 +184,16 @@
         font-weight: 300;
         padding: 24px;
     }
-    
+    pre{
+        font-family: 'JetBrains Mono', monospace;
+        margin: 0;
+    }
     .page{
         left: 50%;
         transform: translate(-50%);
         position: relative;
         padding: 0 20px;
-        font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: 'JetBrains Mono', monospace;
     }
 
     td::before {
@@ -304,7 +318,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #800000;
+        background-color: #500a09;
         transition: .4s;
         border-radius: 34px;
     }
@@ -316,7 +330,7 @@
         width: 20px;
         left: -1px;
         top: -5px;
-        background-color: #484848;
+        background-color: #424242;
         outline: none;
         transition: .4s;
         border-radius: 50%;
@@ -327,7 +341,7 @@
     }
     
     input:checked + .slider {
-        background-color: #008000;
+        background-color: #0A5009;
     }
                 
     input:checked + .slider:before {
