@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
     // @ts-ignore
     import JSONTree from "svelte-json-tree";
-    import NavSideBar from '../../components/navBar/navBar.svelte';
+    import NavSideBar from '../../components/navBar.svelte';
 
     export let data;
     const {stack, context, ...metaData} = data
@@ -116,7 +116,7 @@
         }
     }
     .btn {
-        background-color: #4bb74a;
+        background-color: #13061b;
         color: #fff;
         padding: 10px 20px;
         border: none;

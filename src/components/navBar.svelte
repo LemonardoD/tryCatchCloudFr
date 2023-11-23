@@ -1,6 +1,15 @@
 <script>
-    import userIcon from "../../lib/icons/user.png"
+    import userIcon from "../lib/icons/user.png"
+    import keyIcon from "../lib/icons/key.png"
+    import logIcon from "../lib/icons/log.png"
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+    
 
+    const navigateToErrorLogs = async () => {
+        await goto('/error-logs/1', {replaceState: true});
+
+    };
     let isDropdownOpen = false;
     const handleDropdownClick = () => {
         isDropdownOpen = !isDropdownOpen;
@@ -16,10 +25,10 @@
         </button>
         <div class="navBarDrdown">
             <a href="/showToken">
-                Api Key
+                <img  class="subIcons"src={keyIcon} alt="Api Key"/>
             </a>
-            <a href="/error-logs">
-                Error Log
+            <a  on:click={() =>{navigateToErrorLogs()}}>
+                <img  class="subIcons"src={logIcon} alt="Error log"/>
             </a>    
         </div>
     {:else}
@@ -30,18 +39,23 @@
 </nav>
 
 <style>
+    .subIcons {
+        height: 32px;
+        width: 32px;
+    }
     
     .navBarDrdown a:hover{
-        background-color: #1d1d21;
+        background-color: #222;
         border-radius: 20px;
     }
     a {
+        cursor: pointer;
         font-family: inherit;
         font-size: 14px;
         color: #ffffff;
         display: flex;
-        padding-top: 2px;
-        padding-bottom: 2px;
+        padding-top: 6px;
+        padding-bottom: 6px;
         line-height: 40px;
         align-items: center;
         text-decoration: none;
@@ -62,10 +76,10 @@
         position: absolute;
         cursor: pointer;
     }
-    img {
-            height: 52px;
-            width: 52px;
-        }
+    .userIcon {
+        height: 52px;
+        width: 52px;
+    }
     .navSideBar {
       background: linear-gradient(rgb(32, 21, 36), #11111d, rgb(20, 6, 27));
       line-height: 1;

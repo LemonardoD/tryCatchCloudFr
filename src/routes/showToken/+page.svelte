@@ -1,5 +1,6 @@
 <script lang="ts">
-    import NavSideBar from '../../components/navBar/navBar.svelte';
+	import { goto } from '$app/navigation';
+    import NavSideBar from '../../components/navBar.svelte';
     export let data
 </script>
 
@@ -9,11 +10,25 @@
         <p class="info">
             Here is your API Key: <small>{data.usageToken}</small>
         </p>
+        <button  class="btn" on:click= {() =>{goto("/error-logs")}}>Back to Errors</button>
     </div>
 </div>
 
 
 <style>
+    .btn {
+        background-color: #13061b;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 45px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 16px;
+            &:hover {
+            opacity: 0.5;
+            }
+    }
     small {
         word-break: break-all;
     }

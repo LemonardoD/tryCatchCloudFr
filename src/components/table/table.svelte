@@ -5,7 +5,15 @@
    
     export let tblName: string
     export let data: ErrorLogs[] | undefined
+    export let currentPage: number
     export let cookie: string | undefined
+
+    const setCurrentPage = async (newPage: number) => {
+        currentPage = newPage
+        goto(`/error-logs/${newPage}`, {replaceState: true})
+        
+    }
+    let pageList =[1,2]
 
     let checked = false;
     let intervalId: NodeJS.Timeout
@@ -82,32 +90,21 @@
                                 {/each}
                         </tbody>
                     </table>
+                    {#if pageList.length === 1}
+                        <div class="tablePagination">
+                            <small style="float left">Page 1 of 1</small>
+                        </div>
+                    {:else}
+                        <div class="tablePagination">
+                            {#each pageList as page}
+                                <button  on:click ={() => {setCurrentPage(page)}} class="pages {page === currentPage ? 'active' : ''}">
+                                    {page} 
+                                </button>
+                            {/each}
+                            <small class="pageLabel">Page {currentPage} of {pageList[pageList.length -1 ]}</small>
+                        </div>
+                    {/if}
                 </div>
-                <div class="paginationContent">
-                    <ul class="pagination">
-                        <li>
-                          <a href="#">Prev</a>
-                        </li>
-                        <li>
-                          <a href="#">1</a>
-                        </li>
-                        <li class="active">
-                          <a href="#">2</a>
-                        </li>
-                        <li>
-                          <a href="#">3</a>
-                        </li>
-                        <li>
-                          <a href="#">4</a>
-                        </li>
-                        <li>
-                          <a href="#">5</a>
-                        </li>
-                        <li>
-                          <a href="#">Next</a>
-                        </li>
-                      </ul>
-                    </div>
             {/if}
     </div>
     
@@ -115,7 +112,38 @@
 
 
 <style>
-   
+     button.pages.active {
+        border: 1px solid #484848
+    }
+
+    button.pages:hover{
+        border: 1px solid #a7a7a7;
+    }
+
+    button.pages{
+        color: #fff;
+        font-family: inherit;
+        font-size: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+        border-radius: 4px;
+        border: 1px solid #f9fafb;
+        padding: 8px 16px;
+        text-align: center;
+        margin: 0px 4px;
+        background: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .pageLabel{
+        padding-top: 10px;
+        font-size: 80%;
+        float: right;
+    }
+   .tablePagination{
+        border-top: 1px solid #f3f4f6;
+        padding: 10px 24px;
+    }
     ::-webkit-scrollbar {
         width: 12px;
 		position: absolute;
@@ -145,9 +173,6 @@
         font-weight: 300;
         padding: 24px;
     }
-    .switchLabel{
-        right: 20px;
-    }
     
     .page{
         left: 50%;
@@ -166,7 +191,6 @@
     tr {
         position: relative;
         display: block;
-        max-width: 100%;
         border-bottom: 2px solid #fff;
     }
 
@@ -183,25 +207,18 @@
         width: 100%;
         border-collapse: collapse;
     }
-    .paginationContent{
-        background-color: #27282c;
-        margin-top: 8px;
-        color: #ffffff;
-        padding-left: 36px;
-        border-radius: 30px;
-    }
 
     .cardContent{
         background-color: #27282c;
         margin-top: 8px;
         color: #ffffff;
-        padding-left: 25px;
-        padding-top: 12px;
+        padding: 20px;
         padding-bottom: 8px;
         border-radius: 30px;
     }
 
     .switchLabel{
+        right: 20px;
         color: #ffffff;
         font-family: inherit;
         font-size: 16px;
@@ -237,9 +254,6 @@
         thead {
             display: none;
         }
-        .paginationContent{
-            display: none   ;
-        }
         .cardContent{
             padding: 24px;
         }
@@ -252,33 +266,6 @@
             width: 65%;
         }
 
-        .pagination {
-            margin: 0;
-            position: relative;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(3px);
-            border-radius: 40px;
-        }
-        .pagination li {
-            list-style-type: none;
-            display: inline-block;
-        }
-        .pagination li a {
-            position: relative;
-            padding: 9.5px 25px;
-            font-size: 16px;
-            border-radius: 35px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-        }
-        .pagination li a:hover,
-        .pagination li.active a {
-            background: #1d1d21
-        }
         th{
             padding: 8px 12px;
             text-align: left;
@@ -298,7 +285,7 @@
             vertical-align: middle;
         }
         tr:hover td{
-            background-color: #1d1d21
+            background-color: #222
         }
     }     
     .switch {
@@ -327,7 +314,7 @@
         content: "";
         height: 20px;
         width: 20px;
-        left: 0;
+        left: -1px;
         top: -5px;
         background-color: #484848;
         outline: none;
@@ -344,6 +331,6 @@
     }
                 
     input:checked + .slider:before {
-        transform: translateX(16px);
+        transform: translateX(17px);
     }            
 </style>
