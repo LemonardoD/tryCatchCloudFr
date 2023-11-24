@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import type { PageLoad } from "./$types";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
 export const load: PageLoad = ({ fetch, url }) => {
 	const code = url.searchParams.get("code");
@@ -14,6 +14,9 @@ export const load: PageLoad = ({ fetch, url }) => {
 			redirect: "error",
 			referrerPolicy: "no-referrer",
 		});
+		if (apiResponse.status === 401) {
+			throw error(401, "Unauthorized");
+		}
 		const data = await apiResponse.json();
 		if (!data.token) {
 			throw redirect(302, "/");

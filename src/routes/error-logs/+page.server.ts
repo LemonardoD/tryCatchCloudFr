@@ -1,4 +1,4 @@
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 import type { ErrorLogs } from "../../types/types";
 
@@ -19,6 +19,10 @@ export const load: PageServerLoad = async ({ fetch, url, cookies }) => {
 			redirect: "error",
 			referrerPolicy: "no-referrer",
 		});
+		if (apiResponse.status === 401) {
+			cookies.delete("jwt");
+			throw error(401, "Unauthorized");
+		}
 		const data: { result: ErrorLogs[]; rowCount: string } = await apiResponse.json();
 
 		return { data, token };
