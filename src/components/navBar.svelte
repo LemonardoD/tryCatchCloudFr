@@ -23,11 +23,12 @@
             <img  class="userIcon"src={userIcon} alt="User"/>
         </button>
         <div class="navBarDrdown">
-            <a href="/show-token">
+            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
+            <a  href="/show-token" on:click={() =>{handleDropdownClick()}}>
                 <img  class="subIcons"src={keyIcon} alt="Api Key"/>
             </a>
             <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-            <a  on:click={() =>{navigateToErrorLogs()}}>
+            <a  on:click={() =>{handleDropdownClick(), navigateToErrorLogs()}}>
                 <img  class="subIcons"src={logIcon} alt="Error log"/>
             </a>    
         </div>
