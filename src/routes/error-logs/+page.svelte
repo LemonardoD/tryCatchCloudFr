@@ -1,128 +1,138 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
-	import { changeDate, changeLive, generatePageArray, setCurrentPage } from "$lib/error-log";
-	import type { ErrorLogs } from "../../types/types";
+	import { error } from "@sveltejs/kit";
+    import Loader from "../../components/loader.svelte";
+	import { changeDate, generatePageArray } from "./error-log";
 
     export let data
     let checked = false
-    let intervalId: NodeJS.Timeout
     $: pageNumber = Number($page.url.searchParams.get('page')) ||1
-    $: tableData = data.data.result
-    $: pageList = generatePageArray(pageNumber, Number(data.data.rowCount))
+    $: tableData = data.apiInfo.result
+    $: pageList = generatePageArray(pageNumber, Number(data.apiInfo.rowCount))
     
-    
-    $: if (checked) {
-        goto('/error-logs?page=1')
-        intervalId = setInterval(async () =>{
-            if(data.token){const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/err-log/page/1`, {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${data.token}`,
-            },
-            redirect: "error",
-            referrerPolicy: "no-referrer",
-        });
-        const respData:  { result: ErrorLogs[]; rowCount: string } = await apiResponse.json();
-        tableData = respData.result
-        pageList = generatePageArray(pageNumber, Number(respData.rowCount))
+
+    let autoUpdateInterval: NodeJS.Timeout;
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`https://trycatchcloud.fly.dev/api/err-log/live-update`, {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${data.token}`,
+                },
+                redirect: "error",
+                referrerPolicy: "no-referrer",
+            });
+            if (response.status !== 200) {
+                throw error(response.status, "Something went wrong");
+            }
+            const newData = await response.json();
+            tableData = newData
+        } catch (error) {
+            console.error("Error fetching data:", error);
         }
+    };
+
+    const startAutoUpdate = () => {
+        fetchData()
+        autoUpdateInterval = setInterval(() => {
+            fetchData();
         }, 5000);
-    } else {
-        clearInterval(intervalId);
     }
-    
+
+    const stopAutoUpdate = () => {
+        clearInterval(autoUpdateInterval);
+    }
+
+    $: {
+        if (checked) {
+            startAutoUpdate();
+        } else {
+            tableData = data.apiInfo.result
+            stopAutoUpdate();
+        }
+    }
 </script>
 
-
-<div class="page">
-    <div class="content">
-        <header class="cardHeader">
-            <p class="cardHeaderTitle">Errors</p>
-            <p class="switchLabel">Auto update</p>
-            <div class="switch">
-                <label>
-                  <input type="checkbox" bind:checked on:click={() =>{changeLive(checked)}} />
-                  <span class="slider"></span>
-                </label>
-              </div>
-        </header>
-            {#if !tableData || (tableData && !tableData.length)}
-                <div class="cardContent">
-                    <p class="noData">
-                        No data
-                    </p>
+{#await tableData}
+    <Loader/>
+{:then tableData}
+    <div class="page">
+        <div class="content">
+            <header class="cardHeader">
+                <p class="cardHeaderTitle">Errors</p>
+                <p class="switchLabel">Auto update</p>
+                <div class="switch">
+                    <label>
+                    <input type="checkbox" bind:checked />
+                    <span class="slider"></span>
+                    </label>
                 </div>
-            {:else}
-                <div class="cardContent">
-                    <table>
-                        <thead>
-                            <th>Tag</th>
-                            <th>Includes</th>
-                            <th>Time</th>
-                        </thead>
-                        <tbody>
-                            {#each tableData  as item}
-                                <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
-                                    <td data-label="Tag"><pre>{item.errorMethod.length === 3? item.errorMethod.padEnd(4, " ")+` ${item.errorTag}`: item.errorMethod +` ${item.errorTag}`}</pre></td>
-                                    {#if item.context && item.stack}
-                                        <td data-label="Includes">metadata, stack, context</td>
-                                    {:else if item.context && !item.stack}
-                                        <td data-label="Includes">metadata, context</td>
-                                    {:else if !item.context && item.stack}
-                                        <td data-label="Includes">metadata, stack</td>
-                                    {:else}
-                                        <td data-label="Includes">metadata</td>
-                                    {/if}
-                                        <td data-label="Time">{changeDate(item.errorTime)}</td>
-                                </tr>
-                                {/each}
-                        </tbody>
-                    </table>
-                    {#if pageList.length === 1}
-                        <div class="tablePagination">
-                            <small style="float left">Page 1 of 1</small>
-                        </div>
-                    {:else}
+            </header>
+                {#if !tableData || (tableData && !tableData.length)}
+                    <div class="cardContent">
+                        <p class="noData">
+                            No data
+                        </p>
+                    </div>
+                {:else}
+                    <div class="cardContent">
+                        <table>
+                            <thead>
+                                <th>Tag</th>
+                                <th>Includes</th>
+                                <th>Time</th>
+                            </thead>
+                            <tbody>
+                                {#each tableData  as item}
+                                    <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
+                                        <td data-label="Tag"><pre>{item.errorMethod.length === 3? item.errorMethod.padEnd(4, " ")+` ${item.errorTag}`: item.errorMethod +` ${item.errorTag}`}</pre></td>
+                                        {#if item.context && item.stack}
+                                            <td data-label="Includes">metadata, stack, context</td>
+                                        {:else if item.context && !item.stack}
+                                            <td data-label="Includes">metadata, context</td>
+                                        {:else if !item.context && item.stack}
+                                            <td data-label="Includes">metadata, stack</td>
+                                        {:else}
+                                            <td data-label="Includes">metadata</td>
+                                        {/if}
+                                            <td data-label="Time">{changeDate(item.errorTime)}</td>
+                                    </tr>
+                                    {/each}
+                            </tbody>
+                        </table>
                         {#if checked}
-                            <div class="tablePagination">
-                                {#each pageList as numPage}
-                                    <button disabled class="pages">
-                                        {numPage} 
-                                    </button>
-                                {/each}
-                                <small class="pageLabel">Auto updating</small>
+                            <div class="tablesAutoLabel">
+                                <p class="autoLabel">Auto updating</p>
                             </div>
                         {:else}
-                            <div class="tablePagination">
-                                {#each pageList as numPage}
-                                    <button  on:click ={() => {setCurrentPage(numPage, checked)}} class="pages {numPage === pageNumber ? 'active' : ''}">
-                                        {numPage} 
-                                    </button>
-                                {/each}
-                                <small class="pageLabel">Page {pageNumber} of {pageList[pageList.length -1 ]}</small>
-                            </div>
+                            {#if pageList.length === 1}
+                                    <div class="tablePaginationOnePage">
+                                        <small class="onePageLabel">Page 1 of 1</small>
+                                    </div>
+                                {:else}
+                                    <div class="tablePagination">
+                                        {#each pageList as numPage}
+                                            <button  on:click ={() => {goto(`/error-logs?page=${numPage}`)}} class="pages {numPage === pageNumber ? 'active' : ''}">
+                                                {numPage} 
+                                            </button>
+                                        {/each}
+                                        <small class="pageLabel">Page {pageNumber} of {pageList[pageList.length -1 ]}</small>
+                                    </div>
+                                {/if}
                         {/if}
-                    {/if}
-                </div>
-            {/if}
+                    </div>
+                {/if}
+        </div>
     </div>
-    
-</div>
+{/await}
+
 
 
 <style>
-    button.pages[disabled] {
-        border: 1px solid #27282c;
-        color: white;
-        cursor: auto;
-    }
-
-    button.pages:hover[disabled]{
-        border: 1px solid #27282c;
-    }
     button.pages.active {
         border: 1px solid #424242
     }
@@ -146,10 +156,34 @@
         background: none;
         -webkit-tap-highlight-color: transparent;
     }
+    .autoLabel{
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        float: right;
+    }
+    .onePageLabel{
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        float: left;
+    }
     .pageLabel{
         padding-top: 10px;
-        font-size: 80%;
+        font-size: 13px;
         float: right;
+    }
+    .tablesAutoLabel{
+        display: flex;
+        border-top: 1px solid #a7a7a7;
+        padding: 21px 24px;
+        align-items: center;
+    }
+    .tablePaginationOnePage{
+        display: flex;
+        border-top: 1px solid #a7a7a7;
+        padding: 21px 24px;
+        align-items: center;
     }
     .tablePagination{
         border-top: 1px solid #a7a7a7;

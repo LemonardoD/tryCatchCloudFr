@@ -23,9 +23,9 @@ export const load: PageServerLoad = async ({ fetch, url, cookies }) => {
 			cookies.delete("jwt");
 			throw error(401, "Unauthorized");
 		}
-		const data: { result: ErrorLogs[]; rowCount: string } = await apiResponse.json();
+		const apiInfo: { result: ErrorLogs[]; rowCount: string } = await apiResponse.json();
 
-		return { data, token };
+		return { apiInfo, token };
 	};
 
 	return await getErrorLogs();
