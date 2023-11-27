@@ -1,6 +1,6 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "../$types";
-import type { ErrorLogs } from "../../types/types";
+import type { PageServerLoad } from "../../$types";
+import type { ErrorLogs } from "../../../types/types";
 
 export const load: PageServerLoad = async ({ fetch, url, cookies }) => {
 	let token = cookies.get("jwt");

@@ -2,7 +2,7 @@
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { error } from "@sveltejs/kit";
-    import Loader from "../../components/loader.svelte";
+    import Loader from "../../../components/loader.svelte";
 	import { changeDate, generatePageArray } from "./error-log";
 	import { onMount } from "svelte";
 
@@ -46,6 +46,7 @@
         autoUpdateInterval = setInterval(() => {
             fetchData();
         }, 5000);
+        
     }
 
     const stopAutoUpdate = () => {

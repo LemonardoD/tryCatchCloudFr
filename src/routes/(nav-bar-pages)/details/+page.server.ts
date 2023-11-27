@@ -1,4 +1,4 @@
-import type { DetailsObj, ErrorLogDetail } from "../../types/types";
+import type { DetailsObj, ErrorLogDetail } from "../../../types/types";
 import type { PageServerLoad } from "./$types";
 import { error, redirect } from "@sveltejs/kit";
 

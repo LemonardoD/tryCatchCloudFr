@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
     import copyIcon from "../../lib/icons/copy.png"
-    import Loader from "../../components/loader.svelte";
+    import Loader from "../../../components/loader.svelte";
 
     export let data
     let loaded: boolean;

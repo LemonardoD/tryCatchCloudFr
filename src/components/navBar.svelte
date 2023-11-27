@@ -34,9 +34,6 @@
     }
     a {
         cursor: pointer;
-        font-family: inherit;
-        font-size: 14px;
-        color: #ffffff;
         display: flex;
         padding: 14px 2px;
         line-height: 40px;
