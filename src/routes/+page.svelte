@@ -31,8 +31,8 @@
         padding-right: 4px;
     }
     .page {
-        background-color: #27282c;
-        border-radius: 40px;
+        background-color: #191919;
+        border-radius: 20px;
         padding: 18px;
         text-align: center;
         width: 25%;
@@ -40,9 +40,8 @@
         top: 40%;
         left: 50%;
         transform: translate(-50%,-50%);
-        font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    
-        
+        font-family: sans-serif, "Open Sans";
+        border: 0.5px solid #2a2929;
         @media(max-width: 1023px){
             width: 90%;
             position: relative;
@@ -53,7 +52,7 @@
     }
     
     h1{
-        color: #ffffff;
+        color: #949494;
         font-family: inherit;
         display: block;
         margin: 0;
@@ -61,7 +60,7 @@
         padding-top: 20px;
     }
     p {
-        color: #ffffff;
+        color: #949494;
         font-family: inherit;
         font-size: 20px;
         display: block;
@@ -73,17 +72,17 @@
     }
     
     .btn {
-        background-color: #140e20;
-        color: #fff;
+        background-color: #0070E8;
+        color: #e6f2ff;
         margin: 0 6px;
-        padding: 10px 20px;
+        padding: 12px 28px;
         border: none;
-        border-radius: 45px;
+        border-radius: 18px;
         cursor: pointer;
         font-family: inherit;
-        font-size: 16px;
+        font-size: 14px;
             &:hover {
             opacity: 0.5;
-            }
+        }
     }
 </style>

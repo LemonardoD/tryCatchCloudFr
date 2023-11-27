@@ -109,25 +109,21 @@
                                     {/each}
                             </tbody>
                         </table>
-                        {#if checked}
-                            <div class="tablesAutoLabel">
-                                <p class="autoLabel">Auto updating</p>
-                            </div>
-                        {:else}
+                        {#if !checked}
                             {#if pageList.length === 1}
-                                    <div class="tablePaginationOnePage">
-                                        <small class="onePageLabel">Page 1 of 1</small>
-                                    </div>
-                                {:else}
-                                    <div class="tablePagination">
-                                        {#each pageList as numPage}
-                                            <button  on:click ={() => {goto(`/error-logs?page=${numPage}`)}} class="pages {numPage === pageNumber ? 'active' : ''}">
-                                                {numPage} 
-                                            </button>
-                                        {/each}
-                                        <small class="pageLabel">Page {pageNumber} of {pageList[pageList.length -1 ]}</small>
-                                    </div>
-                                {/if}
+                            <div class="tablePaginationOnePage">
+                                <small class="onePageLabel">Page 1 of 1</small>
+                            </div>
+                            {:else}
+                                <div class="tablePagination">
+                                    {#each pageList as numPage}
+                                        <button  on:click ={() => {goto(`/error-logs?page=${numPage}`)}} class="pages {numPage === pageNumber ? 'active' : ''}">
+                                            {numPage} 
+                                        </button>
+                                    {/each}
+                                    <small class="pageLabel">Page {pageNumber} of {pageList[pageList.length -1 ]}</small>
+                                </div>
+                            {/if}
                         {/if}
                     </div>
                 {/if}
@@ -161,12 +157,6 @@
         background: none;
         -webkit-tap-highlight-color: transparent;
     }
-    .autoLabel{
-        margin: 0;
-        padding: 0;
-        font-size: 13px;
-        float: right;
-    }
     .onePageLabel{
         margin: 0;
         padding: 0;
@@ -177,12 +167,6 @@
         padding-top: 10px;
         font-size: 13px;
         float: right;
-    }
-    .tablesAutoLabel{
-        display: flex;
-        border-top: 1px solid #a7a7a7;
-        padding: 21px 24px;
-        align-items: center;
     }
     .tablePaginationOnePage{
         display: flex;
@@ -228,6 +212,7 @@
         margin: 0;
     }
     .page{
+        
         left: 50%;
         transform: translate(-50%);
         position: relative;
@@ -262,28 +247,28 @@
     }
 
     .cardContent{
-        background-color: #27282c;
+        background-color: #191919;
         margin-top: 8px;
         color: #ffffff;
         padding: 20px;
         padding-bottom: 8px;
-        border-radius: 30px;
+        border-radius: 20px;
+        border: 0.5px solid #2a2929;
     }
-
     .switchLabel{
         right: 20px;
-        color: #ffffff;
+        color: #949494;
         font-family: inherit;
         font-size: 16px;
         display: flex;
         align-items: center;
-        padding: 12px 16px 16px;
+        padding: 16px;
         margin: 0;
     }
 
     .cardHeaderTitle{
-        font-family: inherit;
-        color: #ffffff;
+        font-family: sans-serif, "Open Sans";
+        color: #949494;;
         margin-left: 22px;
         margin-top: 0;
         margin-bottom: 0;
@@ -292,15 +277,17 @@
         font-size: 16px;
         display: flex;
         align-items: center;
-        padding:  12px 16px 16px;
+        padding:  16px;
     }
 
     .cardHeader{
-        background-color: #27282c;
+        background-color: #191919;
         height: 48px;
         display: flex;
         align-items: stretch;
-        border-radius: 30px;
+        border-radius: 20px;
+        font-family: sans-serif, "Open Sans";
+        border: 0.5px solid #2a2929;
     }
 
     @media (max-width: 1100px) {
@@ -380,7 +367,7 @@
     }
     
     input:checked + .slider {
-        background-color: #0A5009;
+        background-color: #73DC8C;
     }
                 
     input:checked + .slider:before {

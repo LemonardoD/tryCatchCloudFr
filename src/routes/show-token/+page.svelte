@@ -1,19 +1,30 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
     import copyIcon from "../../lib/icons/copy.png"
+    import Loader from "../../components/loader.svelte";
 
     export let data
-    
+    let loaded: boolean;
+
     const copyToClipboard = async () => {
         await navigator.clipboard.writeText( data.usageToken);
     };
+    
+    onMount(()=>{
+        loaded = true
+    })
 </script>
 
-<div class="page">
-    <div class="header">
-        <p class="info">Your API Key</p> 
-    </div>
-    <div class="content">
+{#if !loaded}
+    <Loader/>
+{:else}
+    <div class="page">
+        <div class="header"> 
+        </div>
+        <header class="header">
+            <p class="info">Your API Key</p> 
+        </header>
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="token-container" >
             <p class="token">{data.usageToken}</p>
@@ -21,25 +32,34 @@
                 <img  class="copyIcon"src={copyIcon} alt="Copy"/>
             </button>
         </div>
+        <div class="button">
+            <button  class="btn" on:click= {() =>{goto("/error-logs?page=1")}}>Back to Errors</button>
+        </div>
+        
     </div>
-    <button  class="btn" on:click= {() =>{goto("/error-logs?page=1")}}>Back to Errors</button>
-</div>
-
+{/if}
 
 <style>
-    
+    header{
+        border-bottom: 0.5px solid #2a2929;
+        padding: 4px;
+    }
+    .button{
+        padding: 16px 12px;
+    }
     .copy:hover{
-        border-radius: 10px;
-        background-color: #140e20;
+        border-radius: 20px;
+        background-color: #111111;
     }
     .copyIcon{
         height: 24px;
         width: 24px;
-        padding-top: 8px;
-        padding-bottom: 4px;
+        padding: 8px 10px 4px 10px
     }
     .token-container {
-        padding-left: 8px;
+        margin: 12px;
+        border-radius: 20px;
+        background-color: #363636;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -56,14 +76,14 @@
         margin-left: 8px;
     }
     .btn {
-        background-color: #140e20;
-        color: #fff;
-        padding: 10px 20px;
+        background-color: #0070E8;
+        color: #e6f2ff;
+        padding: 12px 28px;
         border: none;
-        border-radius: 45px;
+        border-radius: 18px;
         cursor: pointer;
         font-family: inherit;
-        font-size: 16px;
+        font-size: 14px;
             &:hover {
             opacity: 0.5;
             }
@@ -71,36 +91,24 @@
     .token{
         justify-content: flex-start;
         display: flex;
-        color: #fff;
+        padding: 8px;
+        color: #949494;
         font-family: inherit;
         font-size: 18px;
         margin: 0;
         font-weight: 300;
     }
-    .header{
-        border-bottom: solid #a7a7a7;
-        border-width: thin
-    }
-    .content{
-        padding-left: 8px;
-        padding-top: 14px;
-        padding-bottom: 34px;
-        position: relative;
-        border-radius: 40px;
-        text-align: center;
-        background-color: #27282c;
-    }
     .page{
-        background-color: #27282c;
-        border-radius: 40px;
-        padding: 12px;
+        border: 0.5px solid #2a2929;
+        background-color: #191919;
+        border-radius: 20px;
         text-align: center;
         width: 25%;
         position: absolute;
         top: 40%;
         left: 50%;
         transform: translate(-50%,-50%);
-        font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: sans-serif, "Open Sans";
         @media(max-width: 1100px){
             width: 80%;
             position: relative;
@@ -114,11 +122,11 @@
         padding: 8px 0 10px 14px;
         justify-content: flex-start;
         display: flex;
-        color: #fff;
+        color: #949494;
         font-family: inherit;
         font-size: 18px;
         margin: 0;
-        font-weight: 300;
+        font-weight: 700;
     }
     
 </style>

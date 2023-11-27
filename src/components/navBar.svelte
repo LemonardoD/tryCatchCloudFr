@@ -1,37 +1,35 @@
 <script>
-    import userIcon from "../lib/icons/user.png"
     import keyIcon from "../lib/icons/key.png"
-    import logIcon from "../lib/icons/log.png"
+    import homeIcon from "../lib/icons/home.png"
 
 </script>
   
 
   
 <nav class="navSideBar">
-        <div class="user">
-            <img  class="userIcon"src={userIcon} alt="User"/>
-        </div>
-        <div class="navBar">
-            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-            <a  href="/show-token">
-                <img  class="subIcons"src={keyIcon} alt="Api Key"/>
-            </a>
-            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-            <a  href="/error-logs?page=1">
-                <img  class="subIcons"src={logIcon} alt="Error log"/>
-            </a>    
-        </div>
-   
+    <div class="navBar">
+        <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
+        <a  href="/error-logs?page=1">
+            <img  class="homeIcon"src={homeIcon} alt="Error log"/>
+        </a>
+        <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
+        <a  href="/show-token">
+            <img  class="keyIcon"src={keyIcon} alt="Api Key"/>
+        </a>  
+    </div>
 </nav>
 
 <style>
-    .subIcons {
+    .homeIcon{
+        height: 40px;
+        width: 40px;
+    }
+    .keyIcon {
         height: 36px;
         width: 36px;
     }
-    
     .navBar a:hover{
-        background-color: #27282c;
+        background-color: #222;
         border-radius: 20px;
     }
     a {
@@ -40,31 +38,17 @@
         font-size: 14px;
         color: #ffffff;
         display: flex;
-        padding-top: 6px;
-        padding-bottom: 6px;
+        padding: 14px 2px;
         line-height: 40px;
         align-items: center;
         text-decoration: none;
         justify-content: center;
     }
     .navBar {
-        border-radius: 20px;
+        border-radius: 25px;
         width:61px;
         position: absolute;
-        top: 86px;
-    }
-
-    .user {
-        left:0;
-        padding: 12px 6px;
-        border: none;
-        background: none;
-        position: absolute;
-        cursor: auto;
-    }
-    .userIcon {
-        height: 48px;
-        width: 48px;
+        top: 24px;
     }
     .navSideBar {
       background: linear-gradient(rgb(32, 21, 36), #11111d, rgb(20, 6, 27));
