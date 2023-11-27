@@ -4,14 +4,19 @@
 	import { error } from "@sveltejs/kit";
     import Loader from "../../components/loader.svelte";
 	import { changeDate, generatePageArray } from "./error-log";
+	import { onMount } from "svelte";
 
+    let loaded: boolean;
     export let data
+
     let checked = false
     $: pageNumber = Number($page.url.searchParams.get('page')) ||1
     $: tableData = data.apiInfo.result
     $: pageList = generatePageArray(pageNumber, Number(data.apiInfo.rowCount))
     
-
+    onMount(()=>{
+        loaded = true
+    })
     let autoUpdateInterval: NodeJS.Timeout;
 
     const fetchData = async () => {
@@ -57,9 +62,9 @@
     }
 </script>
 
-{#await tableData}
+{#if !loaded}
     <Loader/>
-{:then tableData}
+{:else}
     <div class="page">
         <div class="content">
             <header class="cardHeader">
@@ -128,7 +133,7 @@
                 {/if}
         </div>
     </div>
-{/await}
+{/if}
 
 
 
@@ -352,7 +357,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #500a09;
+        background-color: #424242;
         transition: .4s;
         border-radius: 34px;
     }
@@ -364,7 +369,7 @@
         width: 20px;
         left: -1px;
         top: -5px;
-        background-color: #424242;
+        background-color: #737373;
         outline: none;
         transition: .4s;
         border-radius: 50%;

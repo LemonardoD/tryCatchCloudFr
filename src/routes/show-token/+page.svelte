@@ -3,7 +3,6 @@
     import copyIcon from "../../lib/icons/copy.png"
 
     export let data
-    let showCopyButton = false;
     
     const copyToClipboard = async () => {
         await navigator.clipboard.writeText( data.usageToken);
@@ -16,7 +15,7 @@
     </div>
     <div class="content">
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="token-container" class:showCopyButton on:mouseenter={() => (showCopyButton = true)} on:mouseleave={() => (showCopyButton = false)}>
+        <div class="token-container" >
             <p class="token">{data.usageToken}</p>
             <button class="copy" on:click={copyToClipboard}>
                 <img  class="copyIcon"src={copyIcon} alt="Copy"/>
@@ -28,9 +27,7 @@
 
 
 <style>
-    .showCopyButton .copy {
-        opacity: 1;
-    }
+    
     .copy:hover{
         border-radius: 10px;
         background-color: #140e20;
@@ -47,6 +44,9 @@
         align-items: center;
         justify-content: space-between;
     }
+    .copy:active {
+        background-color: #737373;
+    }
     
     .copy{
         cursor: pointer;
@@ -54,8 +54,6 @@
         border: none;
         outline: none;
         margin-left: 8px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
     }
     .btn {
         background-color: #140e20;

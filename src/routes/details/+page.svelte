@@ -1,24 +1,27 @@
 <script>
 	import { goto } from '$app/navigation';
-    // @ts-ignore
-    import JSONTree from "svelte-json-tree";
+    import { JsonView } from '@zerodevx/svelte-json-view'
 
     export let data;
     const {stack, context, ...metaData} = data
     
-
 </script>
 
 <div class="page">
     <div class="content">
         <div class="column">
+            <!-- <JSONTree value={metaData} /> -->
             <p class="titleWord">Metadata</p>
-            <div class="jsonTable"><JSONTree value={metaData} /></div>
+            <div class=" jsonTable wrapMetaData">
+                <JsonView  json={metaData} />
+            </div>
         </div>
         {#if context}
             <div class="column">
                 <p class="titleWord">Context</p>
-                <div class="jsonTableContext"><JSONTree value={context} /></div>
+                <div class=" jsonTable wrapContext">
+                    <JsonView  json={context}/>
+                </div>
             </div>
         {/if}
         <div class="column">
@@ -30,49 +33,28 @@
 </div>
 
 <style>
-    .jsonTableContext{
-        --json-tree-string-color: #73BA7E;
-        --json-tree-boolean-color: #112aa7;
-        --json-tree-number-color: #6fa8dc;
-        --json-tree-label-color: #FFA500;
-        --json-tree-arrow-color: #727272;
-        --json-tree-property-color: #E5BDE2;
-        --json-tree-undefined-color: #871d8f;
-        /* position */
-        --json-tree-li-indentation: 16px;
-        --json-tree-li-line-height: 28px;
-        /* font */
-        --json-tree-font-size: 14px;
-        --json-tree-font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    .jsonTable{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        --jsonPaddingLeft:	18px;
+        --jsonBorderLeft:	1px solid #737373;
+        --jsonBracketColor:	#FFA500;	
+        --jsonBracketHoverBackground:	#737373;	
+        --jsonSeparatorColor:	#ffffff;	
+        --jsonKeyColor:	#E5BDE2;
+        --jsonValStringColor:	#73BA7E;
+        --jsonValNumberColor:	#6fa8dc;
         background-color: #231F1E;
         overflow: auto;
-        height: 200px;
-        font-family: inherit;
         padding: 24px;
         border-radius: 5px;
         word-break: break-word;
     }
-    .jsonTable {
-        --json-tree-string-color: #73BA7E;
-        --json-tree-boolean-color: #112aa7;
-        --json-tree-number-color: #6fa8dc;
-        --json-tree-label-color: #FFA500;
-        --json-tree-arrow-color: #727272;
-        --json-tree-property-color: #E5BDE2;
-        --json-tree-undefined-color: #871d8f;
-        /* position */
-        --json-tree-li-indentation: 16px;
-        --json-tree-li-line-height: 28px;
-        /* font */
-        --json-tree-font-size: 14px;
-        --json-tree-font-family: ui-sans-serif, system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: #231F1E;
-        overflow: auto;
+    .wrapMetaData{
         height: 340px;
-        font-family: inherit;
-        padding: 24px;
-        border-radius: 5px;
-        word-break: break-word;
+    }
+    .wrapContext {
+        height: 200px;
     }
    
     .text{

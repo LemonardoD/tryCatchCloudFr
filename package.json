@@ -22,8 +22,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"js-cookie": "^3.0.5",
-		"pusher-js": "^8.3.0",
-		"svelte-json-tree": "^2.2.0"
+		"@zerodevx/svelte-json-view": "^1.0.7",
+		"js-cookie": "^3.0.5"
 	}
 }

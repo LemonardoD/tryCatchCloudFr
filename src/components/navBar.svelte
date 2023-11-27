@@ -2,44 +2,35 @@
     import userIcon from "../lib/icons/user.png"
     import keyIcon from "../lib/icons/key.png"
     import logIcon from "../lib/icons/log.png"
-    
-    let isDropdownOpen = false;
-    const handleDropdownClick = () => {
-        isDropdownOpen = !isDropdownOpen;
-    }
+
 </script>
   
 
   
 <nav class="navSideBar">
-    {#if isDropdownOpen}
-        <button class="user" on:click={() =>{handleDropdownClick()}}>
+        <div class="user">
             <img  class="userIcon"src={userIcon} alt="User"/>
-        </button>
-        <div class="navBarDrdown">
+        </div>
+        <div class="navBar">
             <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-            <a  href="/show-token" on:click={() =>{handleDropdownClick()}}>
+            <a  href="/show-token">
                 <img  class="subIcons"src={keyIcon} alt="Api Key"/>
             </a>
             <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-            <a  href="/error-logs?page=1"on:click={() =>{handleDropdownClick()}}>
+            <a  href="/error-logs?page=1">
                 <img  class="subIcons"src={logIcon} alt="Error log"/>
             </a>    
         </div>
-    {:else}
-        <button class="user" on:click={() =>{handleDropdownClick()}}>
-            <img  class="userIcon"src={userIcon} alt="User"/>
-        </button>
-    {/if}
+   
 </nav>
 
 <style>
     .subIcons {
-        height: 32px;
-        width: 32px;
+        height: 36px;
+        width: 36px;
     }
     
-    .navBarDrdown a:hover{
+    .navBar a:hover{
         background-color: #27282c;
         border-radius: 20px;
     }
@@ -56,7 +47,7 @@
         text-decoration: none;
         justify-content: center;
     }
-    .navBarDrdown {
+    .navBar {
         border-radius: 20px;
         width:61px;
         position: absolute;
@@ -65,15 +56,15 @@
 
     .user {
         left:0;
-        padding: 12px 4px;
+        padding: 12px 6px;
         border: none;
         background: none;
         position: absolute;
-        cursor: pointer;
+        cursor: auto;
     }
     .userIcon {
-        height: 52px;
-        width: 52px;
+        height: 48px;
+        width: 48px;
     }
     .navSideBar {
       background: linear-gradient(rgb(32, 21, 36), #11111d, rgb(20, 6, 27));
