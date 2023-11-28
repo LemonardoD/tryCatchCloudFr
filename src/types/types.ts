@@ -8,6 +8,12 @@ export type ErrorLogs = {
 	context: object | null;
 };
 
+export type GroupedErrors = {
+	req_url: string;
+	project_name: string;
+	count: string;
+};
+
 export type ErrorLogDetail = {
 	errLogId: string;
 	user: string;

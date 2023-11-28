@@ -24,12 +24,13 @@
         width: 90%;
         height: 50vh;
         text-align: center;
-        background-color: #181716;
+        background-color: #111111;
     }
 
     .errContent{
         display: table-cell;
         vertical-align: middle;
+        background-color: #111111;
     }
 
     .errContent h1{

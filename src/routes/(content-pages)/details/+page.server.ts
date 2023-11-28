@@ -23,25 +23,22 @@ export const load: PageServerLoad = ({ fetch, url, cookies }) => {
 			cookies.delete("jwt");
 			throw error(401, "Unauthorized");
 		}
-		const data: {
-			message: ErrorLogDetail[];
-		} = await apiResponse.json();
-		const logObj = data.message[0];
+		const data: ErrorLogDetail[] = await apiResponse.json();
 		const errLog: DetailsObj = {
-			method: logObj.method,
-			url: logObj.url,
-			errorMessage: logObj.errorMessage,
-			stack: logObj.stack,
-			context: logObj.context,
+			method: data[0].method,
+			url: data[0].url,
+			errorMessage: data[0].errorMessage,
+			stack: data[0].stack,
+			context: data[0].context,
 		};
-		if (logObj.query) {
-			errLog.query = logObj.query;
+		if (data[0].query) {
+			errLog.query = data[0].query;
 		}
-		if (logObj.requestBody) {
-			errLog.body = logObj.requestBody;
+		if (data[0].requestBody) {
+			errLog.body = data[0].requestBody;
 		}
-		if (logObj.error) {
-			errLog.error = logObj.error;
+		if (data[0].error) {
+			errLog.error = data[0].error;
 		}
 
 		return errLog;

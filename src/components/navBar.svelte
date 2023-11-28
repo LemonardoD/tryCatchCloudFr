@@ -1,69 +1,75 @@
 <script>
     import keyIcon from "../lib/icons/key.png"
     import homeIcon from "../lib/icons/home.png"
-
+    import logIcon from "../lib/icons/logs.png"
+    import allErrorIcon from "../lib/icons/allerrors.png"
 </script>
   
-
-  
-<nav class="navSideBar">
-    <div class="navBar">
-        <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-        <a  href="/error-logs?page=1">
-            <img  class="homeIcon"src={homeIcon} alt="Error log"/>
-        </a>
-        <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
-        <a  href="/show-token">
-            <img  class="keyIcon"src={keyIcon} alt="Api Key"/>
-        </a>  
-    </div>
-</nav>
+<div class="footer">
+    <a  href="/user-projects">
+        <img  class="homeIcon"src={homeIcon} alt="Projects"/>
+        <small>My Projects</small>
+    </a>
+    <a  href="/grouped-errors">
+        <img  class="subIcon"src={logIcon} alt="Grouped err logs"/>
+        <small>Grouped Errors</small>
+    </a>
+    <a  href="/error-logs">
+        <img  class="subIcon"src={allErrorIcon} alt="Err logs"/>
+        <small>All Errors</small>
+    </a>
+    <a  href="/show-token">
+        <img  class="subIcon"src={keyIcon} alt="Api Key"/>
+        <small>Api Key</small>
+    </a>
+</div>
 
 <style>
-    .homeIcon{
-        height: 40px;
-        width: 40px;
+    small{
+        margin: 0;
+        padding-top: 8px;
+        font-family: inherit;
+        font-size: 11px;
     }
-    .keyIcon {
+    .footer{
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        background-color: #191919;
+        font-family: sans-serif, "Open Sans";
+        border-top: 2px solid #2a2929;
+        width: 800px;
+        height: 50px;
+        display: flex;
+        box-shadow: rgba(0, 0, 0, 0.17) 0px -1px 4px 0px;
+        position: fixed;
+        justify-content: space-around;
+        bottom: 0px;
+        padding: 8px 0px;
+        z-index: 100;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    @media (max-width: 1099px) {
+        .footer{
+            width: 90%;
+        }
+    }
+    .homeIcon{
         height: 36px;
         width: 36px;
     }
-    .navBar a:hover{
-        background-color: #222;
-        border-radius: 20px;
+    .subIcon {
+        height: 36px;
+        width: 36px;
     }
-    a {
+    a { 
+        color: #949494;
         cursor: pointer;
         display: flex;
-        padding: 14px 2px;
-        line-height: 40px;
         align-items: center;
         text-decoration: none;
         justify-content: center;
-    }
-    .navBar {
-        border-radius: 25px;
-        width:61px;
-        position: absolute;
-        top: 24px;
-    }
-    .navSideBar {
-      background: linear-gradient(rgb(32, 21, 36), #11111d, rgb(20, 6, 27));
-      line-height: 1;
-      padding: 12px 0px 2px;
-      width: 60px;
-      position: fixed;
-      top: 0px;
-      left: -0px;
-      bottom: 0px;
-      justify-content: space-between;
-      z-index: 1020;
-      border-right: 1px solid transparent;
-      display: flex;
-      flex-direction: column;
-      transition: left 0.3s ease;
-      @media (max-width: 1100px) {
-        display: none;
-      }
+        flex-direction: column; /* Added to make the text go under the image */
+        text-align: center; /* Optional: Align text at the center */
     }
   </style>

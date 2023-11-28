@@ -1,16 +1,15 @@
 <script>
-	import { goto } from '$app/navigation';
     import { JsonView } from '@zerodevx/svelte-json-view'
+    import Header from '../../../components/header.svelte'
+    import goBack from '../../../lib/icons/back-button.png'
 
     export let data;
     const {stack, context, ...metaData} = data
     
 </script>
-
-<div class="page">
+    <Header backButton={true} header={"Specific Error"} />
     <div class="content">
         <div class="column">
-            <!-- <JSONTree value={metaData} /> -->
             <p class="titleWord">Metadata</p>
             <div class=" jsonTable wrapMetaData">
                 <JsonView  json={metaData} />
@@ -28,11 +27,11 @@
             <p class="titleWord">Stack Trace</p>
             <p class="text">{stack}</p>
         </div>
-        <button  class="btn" on:click= {() =>{goto("/error-logs?page=1")}}>Back to Errors</button>
     </div>
-</div>
+
 
 <style>
+
     .jsonTable{
         font-family: 'JetBrains Mono', monospace;
         font-size: 14px;
@@ -56,7 +55,6 @@
     .wrapContext {
         height: 200px;
     }
-   
     .text{
         font-size: 14px;
         color: #949494;
@@ -79,36 +77,9 @@
         margin-top: 12px;
     }
     .content{
+        margin-top: 12px;
+        margin-bottom: 70px;
         padding: 0 24px;
     }
-    .page{
-        left: 50%;
-        transform: translate(-50%);
-        border-radius: 40px;
-        position: relative;
-        width: 60%;
-        font-family: sans-serif, "Open Sans";
-        @media(max-width: 1023px){
-            width: 90%;
-            position: relative;
-            margin: 2.5% auto 0 auto;
-            left: 0%;
-            transform: translate(0%,0%);
-        }
-    }
-    .btn {
-        background-color: #0070E8;
-        color: #e6f2ff;
-        padding: 12px 28px;
-        border: none;
-        border-radius: 18px;
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 15px;
-            &:hover {
-            opacity: 0.5;
-        }
-    }
     
-  
 </style>
