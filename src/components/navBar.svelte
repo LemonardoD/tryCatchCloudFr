@@ -2,6 +2,7 @@
     import keyIcon from "../lib/icons/key.png"
     import homeIcon from "../lib/icons/home.png"
     import logIcon from "../lib/icons/logs.png"
+    import logOutIcon from "../lib/icons/logout.png"
     import allErrorIcon from "../lib/icons/allerrors.png"
 </script>
   
@@ -21,6 +22,10 @@
     <a  href="/show-token">
         <img  class="subIcon"src={keyIcon} alt="Api Key"/>
         <small>Api Key</small>
+    </a>
+    <a  href="/logout">
+        <img  class="subIcon"src={logOutIcon} alt="Api Key"/>
+        <small>Log out</small>
     </a>
 </div>
 

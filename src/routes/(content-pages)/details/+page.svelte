@@ -1,7 +1,6 @@
 <script>
     import { JsonView } from '@zerodevx/svelte-json-view'
     import Header from '../../../components/header.svelte'
-    import goBack from '../../../lib/icons/back-button.png'
 
     export let data;
     const {stack, context, ...metaData} = data
