@@ -9,7 +9,11 @@
     let previousPage : string = base;
     
     afterNavigate(({from}) => {
-        previousPage = from?.url.href || previousPage
+        if(from?.url.href.includes("get-id-token")){
+            previousPage = "/error-logs"
+        }else{
+            previousPage = from?.url.href || previousPage
+        }
     }) 
 </script>
 

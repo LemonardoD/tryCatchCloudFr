@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
     onMount(()=>{
-        setTimeout(() =>{goto("/")}, 5000)
+        setTimeout(() =>{goto("/")}, 2000)
     })
 </script>
 
