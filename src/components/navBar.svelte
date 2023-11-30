@@ -1,18 +1,18 @@
 <script>
     import keyIcon from "../lib/icons/key.png"
-    import homeIcon from "../lib/icons/home.png"
-    import logIcon from "../lib/icons/logs.png"
+    import projectsIcon from "../lib/icons/projects.png"
+    import groupedIcon from "../lib/icons/grouped.png"
     import logOutIcon from "../lib/icons/logout.png"
     import allErrorIcon from "../lib/icons/allerrors.png"
 </script>
   
 <div class="footer">
     <a  href="/user-projects">
-        <img  class="homeIcon"src={homeIcon} alt="Projects"/>
+        <img  class="subIcon"src={projectsIcon} alt="Projects"/>
         <small>My Projects</small>
     </a>
     <a  href="/grouped-errors">
-        <img  class="subIcon"src={logIcon} alt="Grouped err logs"/>
+        <img  class="subIcon"src={groupedIcon} alt="Grouped err logs"/>
         <small>Grouped Errors</small>
     </a>
     <a  href="/error-logs">
@@ -32,7 +32,7 @@
 <style>
     small{
         margin: 0;
-        padding-top: 8px;
+        padding-top: 6px;
         font-family: inherit;
         font-size: 11px;
     }
@@ -49,7 +49,7 @@
         position: fixed;
         justify-content: space-around;
         bottom: 0px;
-        padding: 8px 0px;
+        padding: 9px 0px;
         z-index: 100;
         left: 50%;
         transform: translateX(-50%);
@@ -58,10 +58,6 @@
         .footer{
             width: 90%;
         }
-    }
-    .homeIcon{
-        height: 36px;
-        width: 36px;
     }
     .subIcon {
         height: 36px;

@@ -4,22 +4,48 @@
     const { VITE_GITHUB_ID } = import.meta.env
 </script>
 
-<div class="page">
-    <h1>Welcome</h1>
-    <p>You can sing in via GitHub</p>
-    <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>
-        <div class="signIn"> 
-            <img  class="gitIcons"src={githubIcon} alt="GitHub"/>
-            <span class="iconTag">Sing in  with GitHub</span>
-        </div>
-    </button>  
+
+<div class="page"> 
+    <div class="header">
+        <p class="headerTittle">Try Catch Cloud</p>
+    </div>
+   
+    <div class="info">
+        <p class="signinTitle">Sign In to Try Catch Cloud</p>
+        <button  class="btn" on:click= {() =>{goto(`https://github.com/login/oauth/authorize?client_id=${VITE_GITHUB_ID}`)}}>
+            <div class="signIn">
+                <img  class="gitIcons"src={githubIcon} alt="GitHub"/>
+                <span class="iconTag">Continue with GitHub</span>
+            </div>
+        </button> 
+    </div>
 </div>
-  
+
 <style>
+    .signinTitle{
+        margin: 20px 0px 40px;
+    }
+    .header{
+        padding: 20px 0px 10px 50px;
+        height: 49px;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        background-color: #191919;
+        border-bottom: 1.5px solid #2a2929;
+    }
     .signIn{
         display: flex;
         flex-direction: row;
         align-items: center;
+    }
+    .info {
+        margin-top: 60px;
+        align-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column; 
     }
     .iconTag{
         padding: 2px;
@@ -30,59 +56,51 @@
         width: 28px;
         padding-right: 4px;
     }
-    .page {
-        background-color: #191919;
-        border-radius: 20px;
-        padding: 18px;
-        text-align: center;
-        width: 25%;
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        font-family: sans-serif, "Open Sans";
-        border: 0.5px solid #2a2929;
-        @media(max-width: 1023px){
-            width: 90%;
-            position: relative;
-            margin: 2.5% auto 0 auto;
-            left: 0%;
-            transform: translate(0%,0%);
-        }
+    
+    .headerTittle{
+        font-size: 34px;
+        font-weight: 700;
     }
     
-    h1{
-        color: #949494;
-        font-family: inherit;
-        display: block;
-        margin: 0;
-        padding-bottom: 20px;
-        padding-top: 20px;
-    }
     p {
         color: #949494;
-        font-family: inherit;
-        font-size: 20px;
-        display: block;
-        box-shadow:inset 0px 1px 1px fadeout(white, 95%);
-        border: 1px solid darken(#2a2a2a, 5%);
+        font-family: sans-serif, "Open Sans";
         margin: 0;
-        font-weight: 300;
-        padding-bottom: 30px;
+        padding: 0;
+        font-size: 16px;
     }
     
     .btn {
-        background-color: #0070E8;
-        color: #e6f2ff;
-        margin: 0 6px;
-        padding: 12px 28px;
+        background-color: #858585;
+        color: #fff;
+        padding: 12px 100px;
         border: none;
-        border-radius: 18px;
+        border-radius: 10px;
         cursor: pointer;
         font-family: inherit;
         font-size: 14px;
             &:hover {
             opacity: 0.5;
+        }
+    }
+    .page{
+        background-color: #191919;
+        border: 2px solid #2a2929;
+        width: 600px;
+        height: 400px;
+        left: 50%;
+        transform: translate(-50%);
+        position: absolute;
+        top: 20%;
+        padding: 0;
+        margin: 0;
+        border-radius: 10px;
+    }
+
+
+    @media (max-width: 1099px) {
+        .page{
+            width: 90%;
         }
     }
 </style>
