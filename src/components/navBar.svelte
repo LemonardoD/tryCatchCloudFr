@@ -4,6 +4,7 @@
     import groupedIcon from "../lib/icons/grouped.png"
     import logOutIcon from "../lib/icons/logout.png"
     import allErrorIcon from "../lib/icons/allerrors.png"
+	import { goto } from "$app/navigation";
 </script>
   
 <div class="footer">
@@ -23,7 +24,8 @@
         <img  class="subIcon"src={keyIcon} alt="Api Key"/>
         <small>Api Key</small>
     </a>
-    <a  href="/logout">
+    <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-missing-attribute --><!-- svelte-ignore a11y-no-static-element-interactions -->
+    <a  on:click={()=>{goto("/logout")}}>
         <img  class="subIcon"src={logOutIcon} alt="Api Key"/>
         <small>Log out</small>
     </a>

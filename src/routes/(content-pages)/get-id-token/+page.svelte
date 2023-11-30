@@ -4,7 +4,7 @@
 	import Loader from "../../../components/loader.svelte";
 
     onMount(()=>{
-        goto("/error-logs?page=1")
+        goto("/user-projects")
     })
 </script>
 
