@@ -1,5 +1,5 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad } from "../user-projects/$types";
 
 export const load: PageServerLoad = ({ cookies }) => {
 	let token = cookies.get("jwt");
@@ -7,7 +7,7 @@ export const load: PageServerLoad = ({ cookies }) => {
 		throw redirect(302, "/");
 	}
 	const fetchApi = async () => {
-		const apiResponse = await fetch(`https://trycatchcloud.fly.dev/api/projects/all`, {
+		const apiAllPr = await fetch(`https://trycatchcloud.fly.dev/api/projects/all`, {
 			method: "GET",
 			mode: "cors",
 			headers: {
@@ -17,11 +17,12 @@ export const load: PageServerLoad = ({ cookies }) => {
 			redirect: "error",
 			referrerPolicy: "no-referrer",
 		});
-		if (apiResponse.status === 401) {
+		if (apiAllPr.status === 401) {
 			cookies.delete("jwt");
 			throw error(401, "Unauthorized");
 		}
-		const data: { projectName: string }[] = await apiResponse.json();
+		const data: { projectName: string }[] = await apiAllPr.json();
+
 		return { projects: data };
 	};
 	return fetchApi();

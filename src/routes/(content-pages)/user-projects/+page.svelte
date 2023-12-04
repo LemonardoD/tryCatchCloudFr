@@ -1,52 +1,27 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-    import Loader from "../../../components/loader.svelte";
-    import Header from '../../../components/header.svelte';
 	import Table from '../../../components/table/table.svelte';
 
     export let data
     const {projects} = data
-    let loaded: boolean;
     
-    onMount(()=>{
-        loaded = true
-    })
 </script>
 
-{#if !loaded}
-    <Loader/>
-{:else}
-    <Header backButton={true} header={"Your Projects"}/>
-    {#if !data || (data && !projects.length)}
-    <div class="cardContent">
-        <p class="noData">
-            No data
-        </p>
-    </div>
-    {:else}
+
+    <!-- <Headers header={"All Projects"} href={""} hrefActive={false}/> -->
+    <!-- <div class="page"> -->
         <div class="cardContent">
             <Table tableName="usProjects" data={projects} headers={["Name"]}/>
         </div>
-    {/if}
-{/if}
+    <!-- </div> -->
+
 
 <style>
-    .noData{
-        text-align: center;
-        color: #ffffff;
-        font-family: inherit;
-        font-size: 20px;
-        display: block;
-        text-transform: uppercase;
-        margin: 0;
-        font-weight: 300;
-        padding: 24px;
-    }
 
     .cardContent{
         color: #ffffff;
         padding:6px 20px 0px 20px;
-        margin-bottom: 60px;
+        margin-bottom: 20px;
     }
     
     @media (max-width: 1100px) {

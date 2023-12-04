@@ -15,42 +15,59 @@
         {/each}
     </thead>
     <tbody>
-        {#if  tableName === "ErrorLogs"}
-            {#each data  as item}
-                <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
-                    <td data-label="Tag"><pre>{item.errorMethod.length === 3? item.errorMethod.padEnd(4, " ")+` ${item.errorTag}`: item.errorMethod +` ${item.errorTag}`}</pre></td>
-                    {#if item.context && item.stack}
-                        <td data-label="Includes">metadata, stack, context</td>
-                    {:else if item.context && !item.stack}
-                        <td data-label="Includes">metadata, context</td>
-                    {:else if !item.context && item.stack}
-                        <td data-label="Includes">metadata, stack</td>
-                    {:else}
-                        <td data-label="Includes">metadata</td>
-                    {/if}
-                    <td data-label="Time">{changeDate(item.errorTime)}</td>
-                </tr>
-            {/each}
-        {:else if  tableName === "usProjects"}
-            {#each data  as item}
-                <tr class="haveRef" on:click={() => {goto(`/error-logs?project=${item.projectName}`)}}>
-                    <td data-label="Project Name">{item.projectName}</td>
-                </tr>
-            {/each}
-        {:else if  tableName === "GroupedLogs"}
-            {#each data.apiData  as item}
-                <tr class="haveRef" on:click={() => {goto(`/error-logs?project=${item.project_name}&tag=${item.req_url}`)}}>
-                    <td data-label="Project">{item.project_name}</td>   
-                    <td data-label="Tag">{item.req_url}</td>
-                    <td data-label="Count">{item.count}</td>
-                </tr>
-            {/each}
+        {#if typeof data === "string"}
+            <p class="noData">
+                No data
+            </p>
+        {:else}
+            {#if  tableName === "ErrorLogs"}
+                {#each data  as item}
+                    <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
+                        <td data-label="Tag"><pre>{item.errorMethod.length === 3? item.errorMethod.padEnd(4, " ")+` ${item.errorTag}`: item.errorMethod +` ${item.errorTag}`}</pre></td>
+                        {#if item.context && item.stack}
+                            <td data-label="Includes">metadata, stack, context</td>
+                        {:else if item.context && !item.stack}
+                            <td data-label="Includes">metadata, context</td>
+                        {:else if !item.context && item.stack}
+                            <td data-label="Includes">metadata, stack</td>
+                        {:else}
+                            <td data-label="Includes">metadata</td>
+                        {/if}
+                        <td data-label="Time">{changeDate(item.errorTime)}</td>
+                    </tr>
+                {/each}
+            {:else if  tableName === "usProjects"}
+                {#each data  as item}
+                    <tr class="haveRef" on:click={() => {goto(`/error-logs?project=${item.projectName}`)}}>
+                        <td data-label="Project Name">{item.projectName}</td>
+                    </tr>
+                {/each}
+            {:else if  tableName === "GroupedLogs"}
+                {#each data.apiData  as item}
+                    <tr class="haveRef" on:click={() => {goto(`/error-logs?project=${item.project_name}&tag=${item.req_url}`)}}>
+                        <td data-label="Project">{item.project_name}</td>   
+                        <td data-label="Tag">{item.req_url}</td>
+                        <td data-label="Count">{item.count}</td>
+                    </tr>
+                {/each}
+            {/if}
         {/if}
     </tbody>
 </table>
 
 
 <style>
+    .noData{
+        text-align: center;
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 20px;
+        display: block;
+        text-transform: uppercase;
+        margin: 0;
+        font-weight: 300;
+        padding: 24px;
+    }
     pre{
         font-family: 'JetBrains Mono', monospace;
         margin: 0;

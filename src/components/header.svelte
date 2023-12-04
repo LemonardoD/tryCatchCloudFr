@@ -1,72 +1,79 @@
 <script lang="ts">
-    import { base } from '$app/paths';
-    import goBack from '../lib/icons/back-button.png';
-    import { afterNavigate } from '$app/navigation';
+    import settIcon from "../lib/icons/settings.png"
 
-    export let backButton: boolean
     export let header: string
+    export let hrefSettings: string
+    export let hrefActive: boolean
 
-    let previousPage : string = base;
-    
-    afterNavigate(({from}) => {
-        if(from?.url.href.includes("get-id-token")){
-            previousPage = "/error-logs"
-        }else{
-            previousPage = from?.url.href || previousPage
-        }
-    }) 
 </script>
 
 
 <div class="cardHeader">
-    {#if header}
-        <p>{header}</p>
-    {/if}
-    {#if backButton}
-        <a href={previousPage}>
-            <img  class="backIcon"src={goBack} alt="Go Back"/>
+    {#if hrefActive}
+        {#if header}
+        <a class="headerButtons"  href="/user-projects">
+            <p>{header}</p>
+        </a>
+        {/if}
+    {:else}
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <a class="headerButtons inactive">
+            <p>{header}</p>
         </a>
     {/if}
     <slot></slot>
+    <a  class="headerButtons"  href={hrefSettings}>
+        <img  class="subIcon"src={settIcon} alt="Settings"/>
+    </a>
 </div>
 
 <style>
-    p{
-        font-family: inherit;
-        color: #949494;
-        margin-left: 10px;
-        margin-top: 0;
-        margin-bottom: 0;
-        flex-grow: 1;
-        font-weight: 700;
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        padding:  16px;
+    .inactive{
+        cursor: auto;
     }
-    a {
-        cursor: pointer;
+    a.headerButtons.inactive:hover{
+        opacity: 1;
+    }
+    a.headerButtons:hover{
+        opacity: 0.5;
+    }
+    .subIcon{
+        height: 20px;
+        width: 20px;
+    }
+
+    .headerButtons{
         display: flex;
-        padding: 16px;
-        line-height: 40px;
         align-items: center;
         text-decoration: none;
         justify-content: center;
+        border: 1px solid #2a2929;
+        border-radius: 8px;
+        height: 38px;
+        background-color: #111;
+        padding: 0 16px;
     }
+
+    p{
+        font-family: inherit;
+        color: #949494;
+        margin: 0;
+        flex-grow: 1;
+        font-weight: 700;
+        font-size: 16px;
+        padding:  0 16px;
+    }
+  
     .cardHeader{
+        align-items: center;
+        transform: translate(0%, 320%);
+        width: 800px;
         margin: 0px auto;
         -webkit-box-align: center;
         -webkit-box-pack: justify;
         justify-content: space-between;
-        padding: 8px 0px;
-        height: 50px;
         display: flex;
-        align-items: stretch;
-        border-bottom-right-radius: 20px;
-        border-bottom-left-radius: 20px;
-        background-color: #191919;
         font-family: sans-serif, "Open Sans";
-        border-bottom: 2px solid #2a2929;
     }
 
     @media (max-width: 1100px) {

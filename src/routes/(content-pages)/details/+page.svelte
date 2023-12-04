@@ -1,36 +1,72 @@
-<script>
-    import { JsonView } from '@zerodevx/svelte-json-view'
-    import Header from '../../../components/header.svelte'
+<script lang="ts">
+    import { base } from '$app/paths';
+    import { afterNavigate } from '$app/navigation';
+    import { JsonView } from '@zerodevx/svelte-json-view';
 
     export let data;
     const {stack, context, ...metaData} = data
+    let previousPage : string = base;
+    
+    afterNavigate(({from}) => {
+        if(from?.url.href.includes("get-id-token")){
+            previousPage = "/latest-project"
+        }else{
+            previousPage = from?.url.href || previousPage
+        }
+    }) 
     
 </script>
-    <Header backButton={true} header={"Specific Error"} />
-    <div class="content">
-        <div class="column">
-            <p class="titleWord">Metadata</p>
-            <div class=" jsonTable wrapMetaData">
-                <JsonView  json={metaData} />
-            </div>
-        </div>
-        {#if context}
-            <div class="column">
-                <p class="titleWord">Context</p>
-                <div class=" jsonTable wrapContext">
-                    <JsonView  json={context}/>
-                </div>
-            </div>
-        {/if}
-        <div class="column">
-            <p class="titleWord">Stack Trace</p>
-            <p class="text">{stack}</p>
+
+<div class="content">
+    <div class="column">
+        <p class="titleWord">Metadata</p>
+        <div class=" jsonTable wrapMetaData">
+            <JsonView  json={metaData} />
         </div>
     </div>
-
+    {#if context}
+        <div class="column">
+            <p class="titleWord">Context</p>
+            <div class=" jsonTable wrapContext">
+                <JsonView  json={context}/>
+            </div>
+        </div>
+    {/if}
+    <div class="column">
+        <p class="titleWord">Stack Trace</p>
+        <p class="text">{stack}</p>
+    </div>
+    <a class="backButtons"  href={previousPage}>
+        <p class="buttonTitle">Go Back</p>
+    </a>
+</div>
 
 <style>
-
+    .backButtons:hover{
+        opacity: 0.5;
+    }
+    .buttonTitle{
+        font-family: inherit;
+        color: #949494;
+        margin: 0;
+        flex-grow: 1;
+        font-weight: 700;
+        font-size: 16px;
+    }
+    .backButtons{
+        display: flex;
+        align-items: center;
+        width: 110px;
+        text-align: center;
+        text-decoration: none;
+        justify-content: center;
+        border: 1px solid #2a2929;
+        border-radius: 8px;
+        height: 38px;
+        background-color: #111;
+        padding: 0 16px;
+    }
+    
     .jsonTable{
         font-family: 'JetBrains Mono', monospace;
         font-size: 14px;
@@ -49,7 +85,7 @@
         word-break: break-word;
     }
     .wrapMetaData{
-        height: 340px;
+        height: 250px;
     }
     .wrapContext {
         height: 200px;
@@ -59,8 +95,7 @@
         color: #949494;
         line-height: 20px;
         padding-left: 12px;
-        padding-top: 12px;
-        padding-bottom: 24px;
+        padding-bottom: 12px;
     }
 
     .titleWord{
@@ -73,12 +108,9 @@
     
     p{
         word-break:break-word;
-        margin-top: 12px;
     }
     .content{
-        margin-top: 12px;
-        margin-bottom: 70px;
-        padding: 0 24px;
+        padding:6px 20px 20px 20px;
     }
     
 </style>
