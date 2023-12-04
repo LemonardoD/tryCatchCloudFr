@@ -9,17 +9,15 @@
 
 
 <table>
-    <thead>
-        {#each headers  as el}
-            <th>{el}</th>
-        {/each}
-    </thead>
-    <tbody>
-        {#if typeof data === "string"}
-            <p class="noData">
-                No data
-            </p>
-        {:else}
+    {#if typeof data === "string"}
+        <p class="noData">No data</p>
+    {:else}
+        <thead>
+            {#each headers  as el}
+                <th>{el}</th>
+            {/each}
+        </thead>
+        <tbody>
             {#if  tableName === "ErrorLogs"}
                 {#each data  as item}
                     <tr class="haveRef" on:click={() => {goto(`/details?errId=${item.errorLogId}`)}}>
@@ -51,8 +49,8 @@
                     </tr>
                 {/each}
             {/if}
-        {/if}
-    </tbody>
+        </tbody>
+    {/if}
 </table>
 
 

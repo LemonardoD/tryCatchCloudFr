@@ -21,9 +21,11 @@ export const load: PageServerLoad = ({ cookies }) => {
 			cookies.delete("jwt");
 			throw error(401, "Unauthorized");
 		}
-		const data: { projectName: string }[] = await apiAllPr.json();
-
-		return { projects: data };
+		const apiInfo: { projectName: string }[] = await apiAllPr.json();
+		if (apiInfo.length) {
+			return { apiInfo };
+		}
+		return { apiInfo: "No Data" };
 	};
 	return fetchApi();
 };

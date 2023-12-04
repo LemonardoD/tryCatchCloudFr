@@ -9,7 +9,7 @@
     
     afterNavigate(({from}) => {
         if(from?.url.href.includes("get-id-token")){
-            previousPage = "/latest-project"
+            previousPage = "/user-projects"
         }else{
             previousPage = from?.url.href || previousPage
         }

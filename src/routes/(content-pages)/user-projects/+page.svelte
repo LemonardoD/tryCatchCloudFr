@@ -1,19 +1,14 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Table from '../../../components/table/table.svelte';
 
     export let data
-    const {projects} = data
+    const {apiInfo} = data
     
 </script>
 
-
-    <!-- <Headers header={"All Projects"} href={""} hrefActive={false}/> -->
-    <!-- <div class="page"> -->
-        <div class="cardContent">
-            <Table tableName="usProjects" data={projects} headers={["Name"]}/>
-        </div>
-    <!-- </div> -->
+<div class="cardContent">
+    <Table tableName="usProjects" data={apiInfo} headers={["Name"]}/>
+</div>
 
 
 <style>
