@@ -1,4 +1,4 @@
-import HttpClient from "../api/httpClient";
+import HttpClient from "./httpClient";
 import type { ErrorLogDetail, ErrorLogs } from "../types/types";
 
 class Ai extends HttpClient {
