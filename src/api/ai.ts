@@ -50,12 +50,21 @@ class Ai extends HttpClient {
 		});
 		return this.instance.get<any, ErrorLogDetail[]>(`err-log/all`);
 	};
+
 	public getErrLogByProject = (token: string, project: string) => {
 		this.instance.interceptors.request.use(config => {
 			config.headers.Authorization = `Bearer ${token}`;
 			return config;
 		});
 		return this.instance.get<any, ErrorLogs[]>(`err-log/by-project/${project}`);
+	};
+
+	public getUpdates4Log = (token: string) => {
+		this.instance.interceptors.request.use(config => {
+			config.headers.Authorization = `Bearer ${token}`;
+			return config;
+		});
+		return this.instance.get<any, ErrorLogs[]>(`err-log/live-update`);
 	};
 }
 

@@ -3,10 +3,17 @@
 	import Header from "../../components/header.svelte";
 	import Loader from "../../components/loader.svelte";
 	import { navigating } from "$app/stores";
-	import { loading } from "$lib/storage";
+	import { fromUrl, isAutUpdActive, loading } from "$lib/storage";
+	import { beforeNavigate } from "$app/navigation";
 
 	let headerHrefActive: boolean;
 	let headerHrefSettings: string;
+
+	beforeNavigate(({ from }) => {
+		if (from) {
+			fromUrl.set(from.url.href);
+		}
+	});
 
 	$: {
 		let pathName = $page.url.pathname;
@@ -15,7 +22,7 @@
 			headerHrefSettings = "/settings-menu";
 		} else if (pathName === "/settings-menu") {
 			headerHrefActive = true;
-			headerHrefSettings = "/error-logs?project=latest";
+			headerHrefSettings = $fromUrl;
 		} else {
 			headerHrefActive = true;
 			headerHrefSettings = "/settings-menu";
@@ -42,7 +49,12 @@
 				<p class="switchLabel">Auto update</p>
 				<div class="switch">
 					<label>
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							on:change={() => {
+								isAutUpdActive.set(true);
+							}}
+						/>
 						<span class="slider"></span>
 					</label>
 				</div>

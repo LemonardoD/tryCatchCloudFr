@@ -1,40 +1,18 @@
 <script lang="ts">
-	import { error } from "@sveltejs/kit";
+	import { isAutUpdActive } from "$lib/storage";
+	import { aiApi } from "../../../api";
 	import Table from "../../../components/table/table.svelte";
 
 	export let data;
 
-	let checked = false;
 	$: tableData = data.apiInfo;
 
 	let autoUpdateInterval: NodeJS.Timeout;
 
-	const fetchData = async () => {
-		try {
-			const response = await fetch(`https://trycatchcloud.fly.dev/api/err-log/live-update`, {
-				method: "GET",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${data.token}`,
-				},
-				redirect: "error",
-				referrerPolicy: "no-referrer",
-			});
-			if (response.status !== 200) {
-				throw error(response.status, "Something went wrong");
-			}
-			const newData = await response.json();
-			tableData = newData;
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
-	};
-
-	const startAutoUpdate = () => {
-		fetchData();
-		autoUpdateInterval = setInterval(() => {
-			fetchData();
+	const startAutoUpdate = async () => {
+		tableData = await aiApi.getUpdates4Log(data.token);
+		autoUpdateInterval = setInterval(async () => {
+			tableData = await aiApi.getUpdates4Log(data.token);
 		}, 5000);
 	};
 
@@ -43,7 +21,7 @@
 	};
 
 	$: {
-		if (checked) {
+		if ($isAutUpdActive) {
 			startAutoUpdate();
 		} else {
 			tableData = data.apiInfo;
