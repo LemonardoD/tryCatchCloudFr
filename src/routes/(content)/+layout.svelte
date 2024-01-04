@@ -19,13 +19,11 @@
 		let pathName = $page.url.pathname;
 		if (pathName === "/user-projects") {
 			headerHrefActive = false;
-			headerHrefSettings = "/settings-menu";
 		} else if (pathName === "/settings-menu") {
-			headerHrefActive = true;
 			headerHrefSettings = $fromUrl;
+			headerHrefActive = true;
 		} else {
 			headerHrefActive = true;
-			headerHrefSettings = "/settings-menu";
 		}
 		$loading = !!$navigating;
 	}
